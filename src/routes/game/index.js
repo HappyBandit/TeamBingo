@@ -10,6 +10,7 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Game from './Game';
+import fetch from '../../core/fetch';
 
 export default {
     path: '/game',
@@ -32,7 +33,7 @@ export default {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        query: `query{game(id:"${id}"){_id,name,type}}`,
+                        query: `query{game(id:"${id}"){_id,name,type,config{rows,columns},boxes{text,active}}}`,
                     }),
                     credentials: 'include',
                 });

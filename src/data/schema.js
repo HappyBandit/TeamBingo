@@ -16,6 +16,7 @@ import me from './queries/me';
 import news from './queries/news';
 import game from './queries/game';
 import createGame from './mutations/createGame';
+import updateConfig from './mutations/updateConfig';
 
 const schema = new Schema({
     query: new ObjectType({
@@ -30,6 +31,7 @@ const schema = new Schema({
         name: 'Mutation',
         fields: {
             createGame,
+            updateConfig,
         },
     }),
 });
