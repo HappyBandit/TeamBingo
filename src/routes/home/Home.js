@@ -12,33 +12,28 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
 
 class Home extends React.Component {
-  static propTypes = {
-    news: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      link: PropTypes.string.isRequired,
-      content: PropTypes.string,
-    })).isRequired,
-  };
+    static propTypes = {
+        games: PropTypes.arrayOf(PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            type: PropTypes.number.isRequired,
+        })).isRequired,
+    };
 
-  render() {
-    return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <h1>React.js News</h1>
-          {this.props.news.map(item => (
-            <article key={item.link} className={s.newsItem}>
-              <h1 className={s.newsTitle}><a href={item.link}>{item.title}</a></h1>
-              <div
-                className={s.newsDesc}
-                // eslint-disable-next-line react/no-danger
-                dangerouslySetInnerHTML={{ __html: item.content }}
-              />
-            </article>
-          ))}
-        </div>
-      </div>
-    );
-  }
+    render () {
+        return (
+            <div className={s.root}>
+                <div className={s.container}>
+                    <h1>Current Games</h1>
+                    {this.props.games.map(item => (
+                        <article key={item._id} className={s.newsItem}>
+                            <h1 className={s.newsTitle}>{item.name}</h1>
+                            <div className={s.newsDesc}>{item.type}</div>
+                        </article>
+                    ))}
+                </div>
+            </div>
+        );
+    }
 }
 
 export default withStyles(s)(Home);

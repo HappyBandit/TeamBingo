@@ -12,15 +12,15 @@ import ErrorPage from './ErrorPage';
 
 export default {
 
-  path: '/error',
+    path: '/error',
 
-  action({ error }) {
-    return {
-      title: error.name,
-      description: error.message,
-      component: <ErrorPage error={error} />,
-      status: error.status || 500,
-    };
-  },
+    action ({ error }) {
+        return {
+            title: error.name,
+            description: error.message,
+            component: <ErrorPage error={error} />,
+            status: error.status || 500,
+        };
+    },
 
 };

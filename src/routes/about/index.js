@@ -13,16 +13,16 @@ import Page from '../../components/Page';
 
 export default {
 
-  path: '/about',
+    path: '/about',
 
-  async action() {
-    const data = await require.ensure([], require => require('./about.md'), 'about');
+    async action () {
+        const data = await require.ensure([], require => require('./about.md'), 'about');
 
-    return {
-      title: data.title,
-      chunk: 'about',
-      component: <Layout><Page {...data} /></Layout>,
-    };
-  },
+        return {
+            title: data.title,
+            chunk: 'about',
+            component: <Layout><Page {...data} /></Layout>,
+        };
+    },
 
 };

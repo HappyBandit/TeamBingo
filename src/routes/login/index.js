@@ -15,13 +15,13 @@ const title = 'Log In';
 
 export default {
 
-  path: '/login',
+    path: '/login',
 
-  action() {
-    return {
-      title,
-      component: <Layout><Login title={title} /></Layout>,
-    };
-  },
+    action () {
+        return {
+            title,
+            component: <Layout><Login title={title} /></Layout>,
+        };
+    },
 
 };

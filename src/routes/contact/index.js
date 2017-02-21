@@ -15,13 +15,13 @@ const title = 'Contact Us';
 
 export default {
 
-  path: '/contact',
+    path: '/contact',
 
-  action() {
-    return {
-      title,
-      component: <Layout><Contact title={title} /></Layout>,
-    };
-  },
+    action () {
+        return {
+            title,
+            component: <Layout><Contact title={title} /></Layout>,
+        };
+    },
 
 };

@@ -12,27 +12,27 @@ import Model from '../sequelize';
 
 const User = Model.define('User', {
 
-  id: {
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV1,
-    primaryKey: true,
-  },
+    id: {
+        type: DataType.UUID,
+        defaultValue: DataType.UUIDV1,
+        primaryKey: true,
+    },
 
-  email: {
-    type: DataType.STRING(255),
-    validate: { isEmail: true },
-  },
+    email: {
+        type: DataType.STRING(255),
+        validate: { isEmail: true },
+    },
 
-  emailConfirmed: {
-    type: DataType.BOOLEAN,
-    defaultValue: false,
-  },
+    emailConfirmed: {
+        type: DataType.BOOLEAN,
+        defaultValue: false,
+    },
 
 }, {
 
-  indexes: [
+    indexes: [
     { fields: ['email'] },
-  ],
+    ],
 
 });
 

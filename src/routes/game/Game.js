@@ -9,9 +9,9 @@
 
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './NotFound.css';
+import s from './Game.css';
 
-class NotFound extends React.Component {
+class Contact extends React.Component {
     static propTypes = {
         title: PropTypes.string.isRequired,
     };
@@ -21,11 +21,11 @@ class NotFound extends React.Component {
             <div className={s.root}>
                 <div className={s.container}>
                     <h1>{this.props.title}</h1>
-                    <p>Sorry, the page you were trying to view does not exist.</p>
+                    <p>...</p>
                 </div>
             </div>
         );
     }
 }
 
-export default withStyles(s)(NotFound);
+export default withStyles(s)(Contact);

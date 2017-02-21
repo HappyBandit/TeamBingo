@@ -12,7 +12,7 @@ import React, { PropTypes } from 'react';
 const ContextType = {
   // Enables critical path CSS rendering
   // https://github.com/kriasoft/isomorphic-style-loader
-  insertCss: PropTypes.func.isRequired,
+    insertCss: PropTypes.func.isRequired,
 };
 
 /**
@@ -39,22 +39,22 @@ const ContextType = {
  */
 class App extends React.PureComponent {
 
-  static propTypes = {
-    context: PropTypes.shape(ContextType).isRequired,
-    children: PropTypes.element.isRequired,
-  };
+    static propTypes = {
+        context: PropTypes.shape(ContextType).isRequired,
+        children: PropTypes.element.isRequired,
+    };
 
-  static childContextTypes = ContextType;
+    static childContextTypes = ContextType;
 
-  getChildContext() {
-    return this.props.context;
-  }
+    getChildContext () {
+        return this.props.context;
+    }
 
-  render() {
+    render () {
     // NOTE: If you need to add or modify header, footer etc. of the app,
     // please do that inside the Layout component.
-    return React.Children.only(this.props.children);
-  }
+        return React.Children.only(this.props.children);
+    }
 
 }
 

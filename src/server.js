@@ -50,14 +50,14 @@ app.use(bodyParser.json());
 // Authentication
 // -----------------------------------------------------------------------------
 app.use(expressJwt({
-  secret: auth.jwt.secret,
-  credentialsRequired: false,
-  getToken: req => req.cookies.id_token,
+    secret: auth.jwt.secret,
+    credentialsRequired: false,
+    getToken: req => req.cookies.id_token,
 }));
 app.use(passport.initialize());
 
 if (__DEV__) {
-  app.enable('trust proxy');
+    app.enable('trust proxy');
 }
 app.get('/login/facebook',
   passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false }),
@@ -65,10 +65,10 @@ app.get('/login/facebook',
 app.get('/login/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login', session: false }),
   (req, res) => {
-    const expiresIn = 60 * 60 * 24 * 180; // 180 days
-    const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-    res.redirect('/');
+      const expiresIn = 60 * 60 * 24 * 180; // 180 days
+      const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
+      res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
+      res.redirect('/');
   },
 );
 
@@ -76,59 +76,59 @@ app.get('/login/facebook/return',
 // Register API middleware
 // -----------------------------------------------------------------------------
 app.use('/graphql', expressGraphQL(req => ({
-  schema,
-  graphiql: __DEV__,
-  rootValue: { request: req },
-  pretty: __DEV__,
+    schema,
+    graphiql: __DEV__,
+    rootValue: { request: req },
+    pretty: __DEV__,
 })));
 
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
-  try {
-    const css = new Set();
+    try {
+        const css = new Set();
 
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
-    const context = {
+        const context = {
       // Enables critical path CSS rendering
       // https://github.com/kriasoft/isomorphic-style-loader
-      insertCss: (...styles) => {
+            insertCss: (...styles) => {
         // eslint-disable-next-line no-underscore-dangle
-        styles.forEach(style => css.add(style._getCss()));
-      },
-    };
+                styles.forEach(style => css.add(style._getCss()));
+            },
+        };
 
-    const route = await UniversalRouter.resolve(routes, {
-      path: req.path,
-      query: req.query,
-    });
+        const route = await UniversalRouter.resolve(routes, {
+            path: req.path,
+            query: req.query,
+        });
 
-    if (route.redirect) {
-      res.redirect(route.status || 302, route.redirect);
-      return;
-    }
+        if (route.redirect) {
+            res.redirect(route.status || 302, route.redirect);
+            return;
+        }
 
-    const data = { ...route };
-    data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
-    data.styles = [
+        const data = { ...route };
+        data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
+        data.styles = [
       { id: 'css', cssText: [...css].join('') },
-    ];
-    data.scripts = [
-      assets.vendor.js,
-      assets.client.js,
-    ];
-    if (assets[route.chunk]) {
-      data.scripts.push(assets[route.chunk].js);
-    }
+        ];
+        data.scripts = [
+            assets.vendor.js,
+            assets.client.js,
+        ];
+        if (assets[route.chunk]) {
+            data.scripts.push(assets[route.chunk].js);
+        }
 
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
-    res.status(route.status || 200);
-    res.send(`<!doctype html>${html}`);
-  } catch (err) {
-    next(err);
-  }
+        const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+        res.status(route.status || 200);
+        res.send(`<!doctype html>${html}`);
+    } catch (err) {
+        next(err);
+    }
 });
 
 //
@@ -139,18 +139,18 @@ pe.skipNodeFiles();
 pe.skipPackage('express');
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
-  console.log(pe.render(err)); // eslint-disable-line no-console
-  const html = ReactDOM.renderToStaticMarkup(
-    <Html
-      title="Internal Server Error"
-      description={err.message}
-      styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
-    >
-      {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
-    </Html>,
+    console.log(pe.render(err)); // eslint-disable-line no-console
+    const html = ReactDOM.renderToStaticMarkup(
+        <Html
+          title="Internal Server Error"
+          description={err.message}
+          styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]}
+        >
+            {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
+        </Html>,
   );
-  res.status(err.status || 500);
-  res.send(`<!doctype html>${html}`);
+    res.status(err.status || 500);
+    res.send(`<!doctype html>${html}`);
 });
 
 //
@@ -158,8 +158,8 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 // -----------------------------------------------------------------------------
 /* eslint-disable no-console */
 models.sync().catch(err => console.error(err.stack)).then(() => {
-  app.listen(port, () => {
-    console.log(`The server is running at http://localhost:${port}/`);
-  });
+    app.listen(port, () => {
+        console.log(`The server is running at http://localhost:${port}/`);
+    });
 });
 /* eslint-enable no-console */

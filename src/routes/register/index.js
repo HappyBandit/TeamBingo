@@ -15,13 +15,13 @@ const title = 'New User Registration';
 
 export default {
 
-  path: '/register',
+    path: '/register',
 
-  action() {
-    return {
-      title,
-      component: <Layout><Register title={title} /></Layout>,
-    };
-  },
+    action () {
+        return {
+            title,
+            component: <Layout><Register title={title} /></Layout>,
+        };
+    },
 
 };

@@ -15,20 +15,20 @@ const isAdmin = false;
 
 export default {
 
-  path: '/admin',
+    path: '/admin',
 
-  async action() {
-    if (!isAdmin) {
-      return { redirect: '/login' };
-    }
+    async action () {
+        if (!isAdmin) {
+            return { redirect: '/login' };
+        }
 
-    const Admin = await require.ensure([], require => require('./Admin').default, 'admin');
+        const Admin = await require.ensure([], require => require('./Admin').default, 'admin');
 
-    return {
-      title,
-      chunk: 'admin',
-      component: <Layout><Admin title={title} /></Layout>,
-    };
-  },
+        return {
+            title,
+            chunk: 'admin',
+            component: <Layout><Admin title={title} /></Layout>,
+        };
+    },
 
 };
