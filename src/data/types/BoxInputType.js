@@ -8,21 +8,21 @@
  */
 
 import {
-    GraphQLObjectType as ObjectType,
-    GraphQLString as StringType,
+    GraphQLInputObjectType as ObjectInputType,
     GraphQLBoolean as BooleanType,
+    GraphQLString as StringType,
     GraphQLNonNull as NonNull,
     GraphQLID as IdType,
 } from 'graphql';
 
-const BoxItemType = new ObjectType({
-    name: 'BoxItem',
-    description: 'The Individual Boxes on a Game Board',
+const BoxInputType = new ObjectInputType({
+    name: 'BoxInput',
+    description: 'The Box Input of a Game',
     fields: {
-        active: { type: new NonNull(BooleanType) },
         text: { type: new NonNull(StringType) },
+        active: { type: new NonNull(BooleanType) },
         timestamp: { type: new NonNull(IdType) },
     },
 });
 
-export default BoxItemType;
+export default BoxInputType;

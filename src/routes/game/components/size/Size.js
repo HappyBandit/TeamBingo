@@ -10,6 +10,7 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Size.css';
+import graphQlFetch from '../../../../core/graphQlFetch';
 
 class Size extends React.Component {
     static propTypes = {
@@ -58,25 +59,10 @@ class Size extends React.Component {
     }
 
     saveState () {
-        this.SaveConfig().then(() => {
-            this.toggleEdit();
-        });
-    }
-
-    async SaveConfig () {
-        const resp = await fetch('/graphql', {
-            method: 'post',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                query: `mutation{updateConfig(id:"${this.props.id}",config:{columns:${this.state.columns},rows:${this.state.rows}}){_id}}`,
-            }),
-            credentials: 'include',
-        });
-        const { data } = await resp.json();
-        if (!data) throw new Error('Failed to update.');
+        graphQlFetch(`mutation{updateConfig(id:"${this.props.id}",config:{columns:${this.state.columns},rows:${this.state.rows}}){_id}}`)
+            .then(() => {
+                this.toggleEdit();
+            });
     }
 
     render () {
@@ -87,15 +73,15 @@ class Size extends React.Component {
                         <div>
                             <label htmlFor="column-edit">Columns:</label>
                             <input
-                              id="column-edit"
-                              type="text"
-                              value={this.state.columns}
-                              onChange={this.onChangeColumn}
+                                id="column-edit"
+                                type="text"
+                                value={this.state.columns}
+                                onChange={this.onChangeColumn}
                             />
                             <label htmlFor="row-edit">Rows:</label>
                             <input
-                              id="row-edit" type="text" value={this.state.rows}
-                              onChange={this.onChangeRow}
+                                id="row-edit" type="text" value={this.state.rows}
+                                onChange={this.onChangeRow}
                             />
                             <button onClick={this.saveState}>Save</button>
                         </div>

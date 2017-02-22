@@ -33,7 +33,7 @@ export default {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        query: `query{game(id:"${id}"){_id,name,type,config{rows,columns},boxes{text,active}}}`,
+                        query: `query{game(id:"${id}"){_id,name,type,config{rows,columns},boxes{text,active,timestamp}}}`,
                     }),
                     credentials: 'include',
                 });
