@@ -11,7 +11,7 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Size.css';
 
-class Game extends React.Component {
+class Size extends React.Component {
     static propTypes = {
         config: PropTypes.shape({
             columns: PropTypes.number,
@@ -53,7 +53,7 @@ class Game extends React.Component {
 
     toggleEdit () {
         this.setState(prevState => ({
-            isEdit: prevState.isEdit,
+            isEdit: !prevState.isEdit,
         }));
     }
 
@@ -112,4 +112,4 @@ class Game extends React.Component {
     }
 }
 
-export default withStyles(s)(Game);
+export default withStyles(s)(Size);
