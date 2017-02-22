@@ -161,10 +161,12 @@
         4
       ],
       "react/jsx-indent": ["error", 4],
+      "react/jsx-indent-props": ["error", 4],
       "linebreak-style": "off",
       "no-underscore-dangle": "off",
       "max-len": "off",
-      "space-before-function-paren": ["error", "always"]
+      "space-before-function-paren": ["error", "always"],
+      "no-param-reassign": ["error", { "props": false }]
     }
   },
   "stylelint": {

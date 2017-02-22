@@ -11,6 +11,7 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Game.css';
 import Size from './components/size/Size';
+import Boxes from './components/boxes/Boxes';
 
 class Game extends React.Component {
     static propTypes = {
@@ -24,18 +25,18 @@ class Game extends React.Component {
             }),
             boxes: PropTypes.arrayOf(PropTypes.shape({
                 text: PropTypes.string.isRequired,
-                active: PropTypes.number.isRequired,
+                active: PropTypes.bool.isRequired,
             })),
         }).isRequired,
     };
 
     render () {
-        console.log(JSON.stringify(this.props));
         return (
             <div className={s.root}>
                 <div className={s.container}>
                     <h1>{this.props.game.name}</h1>
                     <Size id={this.props.game._id} config={this.props.game.config} />
+                    <Boxes id={this.props.game._id} boxes={this.props.game.boxes} />
                 </div>
             </div>
         );
