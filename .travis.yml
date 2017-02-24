@@ -20,5 +20,3 @@ after_success:
 deploy:
   provider: script
   script: tools/deploy.sh
-  on:
-    branch: master
