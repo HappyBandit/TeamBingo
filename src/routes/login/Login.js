@@ -25,14 +25,14 @@ class Login extends React.Component {
                     <div className={s.formGroup}>
                         <a className={s.facebook} href="/login/facebook">
                             <svg
-                              className={s.icon}
-                              width="30"
-                              height="30"
-                              viewBox="0 0 30 30"
-                              xmlns="http://www.w3.org/2000/svg"
+                                className={s.icon}
+                                width="30"
+                                height="30"
+                                viewBox="0 0 30 30"
+                                xmlns="http://www.w3.org/2000/svg"
                             >
                                 <path
-                                  d="M22 16l1-5h-5V7c0-1.544.784-2 3-2h2V0h-4c-4.072 0-7 2.435-7 7v4H7v5h5v14h6V16h4z"
+                                    d="M22 16l1-5h-5V7c0-1.544.784-2 3-2h2V0h-4c-4.072 0-7 2.435-7 7v4H7v5h5v14h6V16h4z"
                                 />
                             </svg>
                             <span>Log in with Facebook</span>
@@ -41,14 +41,14 @@ class Login extends React.Component {
                     <div className={s.formGroup}>
                         <a className={s.google} href="/login/google">
                             <svg
-                              className={s.icon}
-                              width="30"
-                              height="30"
-                              viewBox="0 0 30 30"
-                              xmlns="http://www.w3.org/2000/svg"
+                                className={s.icon}
+                                width="30"
+                                height="30"
+                                viewBox="0 0 30 30"
+                                xmlns="http://www.w3.org/2000/svg"
                             >
                                 <path
-                                  d={'M30 13h-4V9h-2v4h-4v2h4v4h2v-4h4m-15 2s-2-1.15-2-2c0 0-.5-1.828 1-3 ' +
+                                    d={'M30 13h-4V9h-2v4h-4v2h4v4h2v-4h4m-15 2s-2-1.15-2-2c0 0-.5-1.828 1-3 ' +
                   '1.537-1.2 3-3.035 3-5 0-2.336-1.046-5-3-6h3l2.387-1H10C5.835 0 2 3.345 2 7c0 ' +
                   '3.735 2.85 6.56 7.086 6.56.295 0 .58-.006.86-.025-.273.526-.47 1.12-.47 1.735 ' +
                   '0 1.037.817 2.042 1.523 2.73H9c-5.16 0-9 2.593-9 6 0 3.355 4.87 6 10.03 6 5.882 ' +
@@ -64,14 +64,14 @@ class Login extends React.Component {
                     <div className={s.formGroup}>
                         <a className={s.twitter} href="/login/twitter">
                             <svg
-                              className={s.icon}
-                              width="30"
-                              height="30"
-                              viewBox="0 0 30 30"
-                              xmlns="http://www.w3.org/2000/svg"
+                                className={s.icon}
+                                width="30"
+                                height="30"
+                                viewBox="0 0 30 30"
+                                xmlns="http://www.w3.org/2000/svg"
                             >
                                 <path
-                                  d={'M30 6.708c-1.105.49-2.756 1.143-4 1.292 1.273-.762 2.54-2.56 ' +
+                                    d={'M30 6.708c-1.105.49-2.756 1.143-4 1.292 1.273-.762 2.54-2.56 ' +
                   '3-4-.97.577-2.087 1.355-3.227 1.773L25 5c-1.12-1.197-2.23-2-4-2-3.398 0-6 ' +
                   '2.602-6 6 0 .4.047.7.11.956L15 10C9 10 5.034 8.724 2 5c-.53.908-1 1.872-1 ' +
                   '3 0 2.136 1.348 3.894 3 5-1.01-.033-2.17-.542-3-1 0 2.98 4.186 6.432 7 7-1 ' +
@@ -90,11 +90,11 @@ class Login extends React.Component {
                 Username or email address:
               </label>
                             <input
-                              className={s.input}
-                              id="usernameOrEmail"
-                              type="text"
-                              name="usernameOrEmail"
-                              autoFocus
+                                className={s.input}
+                                id="usernameOrEmail"
+                                type="text"
+                                name="usernameOrEmail"
+                                autoFocus
                             />
                         </div>
                         <div className={s.formGroup}>
@@ -102,10 +102,10 @@ class Login extends React.Component {
                 Password:
               </label>
                             <input
-                              className={s.input}
-                              id="password"
-                              type="password"
-                              name="password"
+                                className={s.input}
+                                id="password"
+                                type="password"
+                                name="password"
                             />
                         </div>
                         <div className={s.formGroup}>

@@ -25,7 +25,7 @@ class Page extends React.Component {
                     <h1>{title}</h1>
                     <div
             // eslint-disable-next-line react/no-danger
-                      dangerouslySetInnerHTML={{ __html: html }}
+                        dangerouslySetInnerHTML={{ __html: html }}
                     />
                 </div>
             </div>
