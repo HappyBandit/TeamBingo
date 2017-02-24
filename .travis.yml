@@ -2,16 +2,8 @@ language: node_js
 node_js:
   - '7'
 env:
-  - CXX=g++-4.8
   global:
     secure: Qp6c2zvLNlw0B7UnMbv7rB13mVdetUMqYjmN2TzHAH5xprus89VCs3X1mvdYqKRsHYWaQZUPouRv5w4OFfr1yeN/L+bVQlME2dSfi3kmtFvBsjjsH8/aCHBoekoS2AXoCs6+m34cdwq+KRMnwQoaXR6gCWmTDbHldN6SJHyyXT5J72/rJ09YxMnWq8XoX4rV0Z78RUZITc3Viasg3qXbVaiyMCf2MeVgSAS/4PcN/aV5QUYrFFHisb049p5bJ6NnmPUN3FvA5A2KyRC2bZcUskN5P4u1Qwm9AJm78A7NjEFrgLhL32vs9n7n/agldWAf12Bj7nXjRz4NtVcTvF5TYsFxdc+v9q/HXIpPonLbUrHlvAhe3MnOhu9i/D6y9daxMs5M9DVmJLetLgFcvB/HzYIE10dt2Yb7rh05krwCjOCx9hSolk5jktorTQ26Tp0DOD20yd6bABG7uBIBXgrj5mUPcuIW4XBYsfxg2IgHC0iVceHRi7tDGsC7kgnLFo23YD3TgMFl9EF7pvByS5LIrWLzrbR6JDnhuGHZTBS7+Zt0Ua5eXS5Gmsr/IDJQoxy6M7ESKpKYuNlnPEAGfFFe3y/kvm05Hfq7gSU0YBd1YwsiTm2LTMo8VfjYYudpfFaDlp++MdbQIMNkC1pmHLZJ9RtVWfYrRgJ7TaB0f2c5S64=
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
 before_install:
   - openssl aes-256-cbc -K $encrypted_e51a7a963465_key -iv $encrypted_e51a7a963465_iv
     -in id_rsa.enc -out id_rsa -d
