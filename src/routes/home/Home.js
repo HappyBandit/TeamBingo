@@ -11,6 +11,7 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
 import Link from '../../components/Link';
+import Create from './components/Create';
 
 class Home extends React.Component {
     static propTypes = {
@@ -24,6 +25,7 @@ class Home extends React.Component {
         return (
             <div className={s.root}>
                 <div className={s.container}>
+                    <Create />
                     <h1>Current Games</h1>
                     {this.props.games.map(item => (
                         <article key={item._id} className={s.newsItem}>
