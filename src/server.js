@@ -60,16 +60,16 @@ if (__DEV__) {
     app.enable('trust proxy');
 }
 app.get('/login/facebook',
-  passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false }),
+    passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false }),
 );
 app.get('/login/facebook/return',
-  passport.authenticate('facebook', { failureRedirect: '/login', session: false }),
-  (req, res) => {
-      const expiresIn = 60 * 60 * 24 * 180; // 180 days
-      const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
-      res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-      res.redirect('/');
-  },
+    passport.authenticate('facebook', { failureRedirect: '/login', session: false }),
+    (req, res) => {
+        const expiresIn = 60 * 60 * 24 * 180; // 180 days
+        const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
+        res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
+        res.redirect('/');
+    },
 );
 
 //
@@ -89,13 +89,13 @@ app.get('*', async (req, res, next) => {
     try {
         const css = new Set();
 
-    // Global (context) variables that can be easily accessed from any React component
-    // https://facebook.github.io/react/docs/context.html
+        // Global (context) variables that can be easily accessed from any React component
+        // https://facebook.github.io/react/docs/context.html
         const context = {
-      // Enables critical path CSS rendering
-      // https://github.com/kriasoft/isomorphic-style-loader
+            // Enables critical path CSS rendering
+            // https://github.com/kriasoft/isomorphic-style-loader
             insertCss: (...styles) => {
-        // eslint-disable-next-line no-underscore-dangle
+                // eslint-disable-next-line no-underscore-dangle
                 styles.forEach(style => css.add(style._getCss()));
             },
         };
@@ -113,7 +113,7 @@ app.get('*', async (req, res, next) => {
         const data = { ...route };
         data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
         data.styles = [
-      { id: 'css', cssText: [...css].join('') },
+            { id: 'css', cssText: [...css].join('') },
         ];
         data.scripts = [
             assets.vendor.js,
@@ -148,7 +148,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
         >
             {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
         </Html>,
-  );
+    );
     res.status(err.status || 500);
     res.send(`<!doctype html>${html}`);
 });
