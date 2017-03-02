@@ -10,7 +10,7 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Size.css';
-import graphQlFetch from '../../../../core/graphQlFetch';
+import graphQlFetch from '../../../../../../core/graphQlFetch';
 
 class Size extends React.Component {
     static propTypes = {

@@ -1,0 +1,6 @@
+{
+  "name": "Size",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Size.js"
+}

@@ -29,17 +29,13 @@ const createGame = {
     },
     resolve (root, { name, type, email }) {
         const db = new PouchDB('http://localhost:5984/games');
-        console.log(`Name: ${name}, Type: ${type}`);
 
         const docInput = {
             name,
             type,
             email,
         };
-        return db.post(docInput).then((result) => {
-            console.log(`Result: ${JSON.stringify(result)}`);
-            return db.get(result.id);
-        }).then(doc => doc);
+        return db.post(docInput).then(result => db.get(result.id)).then(doc => doc);
     },
 };
 

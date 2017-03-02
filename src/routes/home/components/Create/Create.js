@@ -17,7 +17,7 @@ import graphQlFetch from '../../../../core/graphQlFetch';
 import history from '../../../../core/history';
 
 const modelSchema = yup.object({
-    name: yup.string().required('please enter a first name'),
+    name: yup.string().required('Please enter a Game Name'),
 
     type: yup.number()
         .required('Please select a Game Type'),
@@ -67,21 +67,23 @@ class Create extends React.Component {
                                                 className="form-control"
                                                 placeholder="Game Name"
                                                 name="name"
+                                                errorClass={s.hasError}
                                             />
-                                            <Form.Message for="name" />
+                                            <Form.Message for="name" errorClass={s.errorMessage} />
                                         </div>
                                         <div className="col-md-6">
                                             <Form.Field
                                                 className="form-control"
                                                 type="select"
                                                 name="type"
+                                                errorClass={s.hasError}
                                             >
                                                 <option value="-1">Select a Starting Type</option>
                                                 <option value="0">Traditional</option>
                                                 <option value="1">Managed</option>
                                                 <option value="2">Unmanaged</option>
                                             </Form.Field>
-                                            <Form.Message for="type" />
+                                            <Form.Message for="type" errorClass={s.errorMessage} />
                                         </div>
                                     </div>
                                     <div className="row">
@@ -91,12 +93,13 @@ class Create extends React.Component {
                                                 className="form-control"
                                                 placeholder="Email"
                                                 name="email"
+                                                errorClass={s.hasError}
                                             />
-                                            <Form.Message for="email" />
+                                            <Form.Message for="email" errorClass={s.errorMessage} />
                                         </div>
                                     </div>
                                     <Form.Button
-                                        className="btn btn-block"
+                                        className="btn btn-primary btn-block"
                                         type="submit"
                                     >
                                         Create
