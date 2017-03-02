@@ -22,14 +22,19 @@ const createGame = {
             name: 'Game Type',
             type: new GraphQLNonNull(GraphQLInt),
         },
+        email: {
+            name: 'Email of Host',
+            type: new GraphQLNonNull(GraphQLString),
+        },
     },
-    resolve (root, { name, type }) {
+    resolve (root, { name, type, email }) {
         const db = new PouchDB('http://localhost:5984/games');
         console.log(`Name: ${name}, Type: ${type}`);
 
         const docInput = {
             name,
             type,
+            email,
         };
         return db.post(docInput).then((result) => {
             console.log(`Result: ${JSON.stringify(result)}`);

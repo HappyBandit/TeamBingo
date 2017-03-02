@@ -54,14 +54,14 @@ const config = {
                     path.resolve(__dirname, '../src'),
                 ],
                 query: {
-          // https://github.com/babel/babel-loader#options
+                    // https://github.com/babel/babel-loader#options
                     cacheDirectory: isDebug,
 
-          // https://babeljs.io/docs/usage/options/
+                    // https://babeljs.io/docs/usage/options/
                     babelrc: false,
                     presets: [
-            // A Babel preset that can automatically determine the Babel plugins and polyfills
-            // https://github.com/babel/babel-preset-env
+                        // A Babel preset that can automatically determine the Babel plugins and polyfills
+                        // https://github.com/babel/babel-preset-env
                         ['env', {
                             targets: {
                                 browsers: pkg.browserslist,
@@ -70,22 +70,22 @@ const config = {
                             useBuiltIns: false,
                             debug: false,
                         }],
-            // Experimental ECMAScript proposals
-            // https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-
+                        // Experimental ECMAScript proposals
+                        // https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-
                         'stage-2',
-            // JSX, Flow
-            // https://github.com/babel/babel/tree/master/packages/babel-preset-react
+                        // JSX, Flow
+                        // https://github.com/babel/babel/tree/master/packages/babel-preset-react
                         'react',
-            // Optimize React code for the production build
-            // https://github.com/thejameskyle/babel-react-optimize
+                        // Optimize React code for the production build
+                        // https://github.com/thejameskyle/babel-react-optimize
                         ...isDebug ? [] : ['react-optimize'],
                     ],
                     plugins: [
-            // Adds component stack to warning messages
-            // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-source
+                        // Adds component stack to warning messages
+                        // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-source
                         ...isDebug ? ['transform-react-jsx-source'] : [],
-            // Adds __self attribute to JSX which React will use for some warnings
-            // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-self
+                        // Adds __self attribute to JSX which React will use for some warnings
+                        // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-self
                         ...isDebug ? ['transform-react-jsx-self'] : [],
                     ],
                 },
@@ -99,13 +99,13 @@ const config = {
                     {
                         loader: 'css-loader',
                         options: {
-              // CSS Loader https://github.com/webpack/css-loader
+                            // CSS Loader https://github.com/webpack/css-loader
                             importLoaders: 1,
                             sourceMap: isDebug,
-              // CSS Modules https://github.com/css-modules/css-modules
+                            // CSS Modules https://github.com/css-modules/css-modules
                             modules: true,
                             localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
-              // CSS Nano http://cssnano.co/options/
+                            // CSS Nano http://cssnano.co/options/
                             minimize: !isDebug,
                             discardComments: { removeAll: true },
                         },
@@ -144,11 +144,17 @@ const config = {
         ],
     },
 
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+        }),
+    ],
+
     resolve: {
         modules: [path.resolve(__dirname, '../src'), 'node_modules'],
     },
 
-  // Don't attempt to continue if there are any errors.
+    // Don't attempt to continue if there are any errors.
     bail: !isDebug,
 
     cache: isDebug,
@@ -189,32 +195,32 @@ const clientConfig = {
     resolve: { ...config.resolve },
 
     plugins: [
-    // Define free variables
-    // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+        // Define free variables
+        // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
             'process.env.BROWSER': true,
             __DEV__: isDebug,
         }),
 
-    // Emit a file with assets paths
-    // https://github.com/sporto/assets-webpack-plugin#options
+        // Emit a file with assets paths
+        // https://github.com/sporto/assets-webpack-plugin#options
         new AssetsPlugin({
             path: path.resolve(__dirname, '../build'),
             filename: 'assets.json',
             prettyPrint: true,
         }),
 
-    // Move modules that occur in multiple entry chunks to a new entry chunk (the commons chunk).
-    // http://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
+        // Move modules that occur in multiple entry chunks to a new entry chunk (the commons chunk).
+        // http://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minChunks: module => /node_modules/.test(module.resource),
         }),
 
         ...isDebug ? [] : [
-      // Minimize all JavaScript output of chunks
-      // https://github.com/mishoo/UglifyJS2#compressor-options
+            // Minimize all JavaScript output of chunks
+            // https://github.com/mishoo/UglifyJS2#compressor-options
             new webpack.optimize.UglifyJsPlugin({
                 sourceMap: true,
                 compress: {
@@ -234,39 +240,39 @@ const clientConfig = {
         ],
 
         new BundleAnalyzerPlugin({
-      // See above
+            // See above
             analyzerMode,
-      // Host that will be used in `server` mode to start HTTP server.
+            // Host that will be used in `server` mode to start HTTP server.
             analyzerHost: '127.0.0.1',
-      // Port that will be used in `server` mode to start HTTP server.
+            // Port that will be used in `server` mode to start HTTP server.
             analyzerPort,
-      // Path to bundle report file that will be generated in `static` mode.
-      // Relative to bundles output directory.
+            // Path to bundle report file that will be generated in `static` mode.
+            // Relative to bundles output directory.
             reportFilename: path.resolve(__dirname, '../report.html'),
-      // Automatically open report in default browser
+            // Automatically open report in default browser
             openAnalyzer: true,
-      // If `true`, Webpack Stats JSON file will be generated in bundles output directory
+            // If `true`, Webpack Stats JSON file will be generated in bundles output directory
             generateStatsFile: !isDebug,
-      // Name of Webpack Stats JSON file that will be generated if `generateStatsFile` is `true`.
-      // Relative to bundles output directory.
+            // Name of Webpack Stats JSON file that will be generated if `generateStatsFile` is `true`.
+            // Relative to bundles output directory.
             statsFilename: path.resolve(__dirname, '../stats.json'),
-      // Options for `stats.toJson()` method.
-      // You can exclude sources of your modules from stats file with `source: false` option.
-      // See more options here: https://github.com/webpack/webpack/blob/webpack-1/lib/Stats.js#L21
+            // Options for `stats.toJson()` method.
+            // You can exclude sources of your modules from stats file with `source: false` option.
+            // See more options here: https://github.com/webpack/webpack/blob/webpack-1/lib/Stats.js#L21
             statsOptions: null,
-      // Log level. Can be 'info', 'warn', 'error' or 'silent'.
+            // Log level. Can be 'info', 'warn', 'error' or 'silent'.
             logLevel: 'info',
         }),
     ],
 
-  // Choose a developer tool to enhance debugging
-  // http://webpack.github.io/docs/configuration.html#devtool
+    // Choose a developer tool to enhance debugging
+    // http://webpack.github.io/docs/configuration.html#devtool
     devtool: isDebug ? 'cheap-module-source-map' : false,
 
-  // Some libraries import Node modules but don't use them in the browser.
-  // Tell Webpack to provide empty mocks for them so importing them works.
-  // https://webpack.github.io/docs/configuration.html#node
-  // https://github.com/webpack/node-libs-browser/tree/master/mock
+    // Some libraries import Node modules but don't use them in the browser.
+    // Tell Webpack to provide empty mocks for them so importing them works.
+    // https://webpack.github.io/docs/configuration.html#node
+    // https://github.com/webpack/node-libs-browser/tree/master/mock
     node: {
         fs: 'empty',
         net: 'empty',
@@ -297,7 +303,7 @@ const serverConfig = {
     module: {
         ...config.module,
 
-    // Override babel-preset-env configuration for Node.js
+        // Override babel-preset-env configuration for Node.js
         rules: config.module.rules.map(rule => (rule.loader !== 'babel-loader' ? rule : {
             ...rule,
             query: {
@@ -320,27 +326,26 @@ const serverConfig = {
         /^\.\/assets\.json$/,
         (context, request, callback) => {
             const isExternal =
-        request.match(/^[@a-z][a-z/.\-0-9]*$/i) &&
-        !request.match(/\.(css|less|scss|sss)$/i);
+                request.match(/^[@a-z][a-z/.\-0-9]*$/i) && !request.match(/\.(css|less|scss|sss)$/i);
             callback(null, Boolean(isExternal));
         },
     ],
 
     plugins: [
-    // Define free variables
-    // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+        // Define free variables
+        // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
             'process.env.BROWSER': false,
             __DEV__: isDebug,
         }),
 
-    // Do not create separate chunks of the server bundle
-    // https://webpack.github.io/docs/list-of-plugins.html#limitchunkcountplugin
+        // Do not create separate chunks of the server bundle
+        // https://webpack.github.io/docs/list-of-plugins.html#limitchunkcountplugin
         new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
 
-    // Adds a banner to the top of each generated chunk
-    // https://webpack.github.io/docs/list-of-plugins.html#bannerplugin
+        // Adds a banner to the top of each generated chunk
+        // https://webpack.github.io/docs/list-of-plugins.html#bannerplugin
         new webpack.BannerPlugin({
             banner: 'require("source-map-support").install();',
             raw: true,
