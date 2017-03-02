@@ -6,12 +6,15 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
+/* global $ b:true */
 
 import React from 'react';
 import Form from 'react-formal';
 import yup from 'yup';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Create.css';
+import graphQlFetch from '../../../../core/graphQlFetch';
+import history from '../../../../core/history';
 
 const modelSchema = yup.object({
     name: yup.string().required('please enter a first name'),
@@ -24,6 +27,18 @@ const modelSchema = yup.object({
 });
 
 class Create extends React.Component {
+
+    static goToGame (id) {
+        history.push(`/game/${id}`);
+    }
+
+    static SubmitForm (event) {
+        graphQlFetch(`mutation{createGame(name:"${event.name}",type:${event.type},email:"${event.email}"){_id}}`)
+            .then((response) => {
+                $('#createModel').modal('hide');
+                Create.goToGame(response.createGame._id);
+            });
+    }
 
     render () {
         return (
@@ -43,6 +58,7 @@ class Create extends React.Component {
                                 <Form
                                     schema={modelSchema}
                                     defaultValue={modelSchema.default()}
+                                    onSubmit={Create.SubmitForm}
                                 >
                                     <div className="row">
                                         <div className="col-md-6">
@@ -51,8 +67,6 @@ class Create extends React.Component {
                                                 className="form-control"
                                                 placeholder="Game Name"
                                                 name="name"
-                                                validations={['required']}
-                                                errorClassName="error"
                                             />
                                             <Form.Message for="name" />
                                         </div>
@@ -77,14 +91,13 @@ class Create extends React.Component {
                                                 className="form-control"
                                                 placeholder="Email"
                                                 name="email"
-                                                validations={['required']}
-                                                errorClassName="error"
                                             />
                                             <Form.Message for="email" />
                                         </div>
                                     </div>
                                     <Form.Button
                                         className="btn btn-block"
+                                        type="submit"
                                     >
                                         Create
                                     </Form.Button>
