@@ -7,15 +7,26 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-.root {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
 .activeBox {
   color: black;
 }
 
 .disabledBox {
   color: gray;
+}
+
+.tableIndex {
+  width: 10%;
+}
+
+.tableText {
+  width: 70%;
+}
+
+.tableActive {
+  width: 10%;
+}
+
+.tableButton {
+  width: 10%;
 }

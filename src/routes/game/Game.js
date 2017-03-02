@@ -10,8 +10,8 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Game.css';
-import Size from './components/size/Size';
-import Boxes from './components/boxes/Boxes';
+import Config from './components/Config';
+import Boxes from './components/Boxes';
 
 class Game extends React.Component {
     static propTypes = {
@@ -35,7 +35,7 @@ class Game extends React.Component {
             <div className={s.root}>
                 <div className={s.container}>
                     <h1>{this.props.game.name}</h1>
-                    <Size id={this.props.game._id} config={this.props.game.config} />
+                    <Config id={this.props.game._id} config={this.props.game.config} />
                     <Boxes id={this.props.game._id} boxes={this.props.game.boxes} />
                 </div>
             </div>

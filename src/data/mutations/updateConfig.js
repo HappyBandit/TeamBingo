@@ -26,16 +26,11 @@ const createGame = {
     },
     resolve (root, { id, config }) {
         const db = new PouchDB('http://localhost:5984/games');
-        console.log(`ID: ${id}, Config: ${JSON.stringify(config)}`);
 
         return db.get(id).then((result) => {
-            console.log(`Result: ${JSON.stringify(result)}`);
             Object.assign(result, { config });
             return db.put(result);
-        }).then((result) => {
-            console.log(`Result: ${JSON.stringify(result)}`);
-            return db.get(result.id);
-        }).then(doc => doc);
+        }).then(result => db.get(result.id)).then(doc => doc);
     },
 };
 

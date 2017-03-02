@@ -3,11 +3,11 @@
 
 # TEAM
 
-  <name> -- <role> -- <twitter>
+  HauptmannEck -- Owner -- NO TWITTER
 
 # THANKS
 
-  <name>
+  BOB DOLE
 
 # TECHNOLOGY COLOPHON
 
