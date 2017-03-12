@@ -16,6 +16,7 @@ import me from './queries/me';
 import news from './queries/news';
 import game from './queries/game';
 import createGame from './mutations/createGame';
+import createBoard from './mutations/createBoard';
 import updateConfig from './mutations/updateConfig';
 import addBox from './mutations/addBox';
 
@@ -34,6 +35,7 @@ const schema = new Schema({
             createGame,
             updateConfig,
             addBox,
+            createBoard,
         },
     }),
 });

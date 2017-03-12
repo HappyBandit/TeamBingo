@@ -12,7 +12,6 @@ import {
     GraphQLBoolean as BooleanType,
     GraphQLString as StringType,
     GraphQLNonNull as NonNull,
-    GraphQLID as IdType,
 } from 'graphql';
 
 const BoxInputType = new ObjectInputType({
@@ -21,7 +20,6 @@ const BoxInputType = new ObjectInputType({
     fields: {
         text: { type: new NonNull(StringType) },
         active: { type: new NonNull(BooleanType) },
-        timestamp: { type: new NonNull(IdType) },
     },
 });
 
