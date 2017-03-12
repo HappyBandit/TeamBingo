@@ -13,9 +13,9 @@ async function graphQlFetch (query) {
         }),
         credentials: 'include',
     });
-    const result = await resp.json();
-    if (!result.data) throw new Error('Failed to update.');
-    return result.data;
+    const { data } = await resp.json();
+    if (!data) throw new Error('Failed to update.');
+    return data;
 }
 
 export default graphQlFetch;
