@@ -13,6 +13,7 @@ import s from './Game.css';
 import Config from './components/Config';
 import Boxes from './components/Boxes';
 import NewBoard from './components/NewBoard';
+import CurrentBoards from './components/CurrentBoards';
 
 class Game extends React.Component {
     static propTypes = {
@@ -27,6 +28,11 @@ class Game extends React.Component {
             boxes: PropTypes.arrayOf(PropTypes.shape({
                 text: PropTypes.string.isRequired,
                 active: PropTypes.bool.isRequired,
+                timestamp: PropTypes.string,
+            })),
+            boards: PropTypes.arrayOf(PropTypes.shape({
+                name: PropTypes.string.isRequired,
+                timestamp: PropTypes.string.isRequired,
             })),
         }).isRequired,
     };
@@ -39,6 +45,7 @@ class Game extends React.Component {
                     <Config id={this.props.game._id} config={this.props.game.config} />
                     <Boxes id={this.props.game._id} boxes={this.props.game.boxes} />
                     <NewBoard id={this.props.game._id} />
+                    <CurrentBoards id={this.props.game._id} boards={this.props.game.boards} />
                 </div>
             </div>
         );

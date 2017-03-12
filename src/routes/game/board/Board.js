@@ -10,6 +10,7 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Board.css';
+import Delete from './components/Delete';
 
 class Board extends React.Component {
     static propTypes = {
@@ -28,6 +29,7 @@ class Board extends React.Component {
                     timestamp: PropTypes.string,
                     selected: PropTypes.bool,
                 })).isRequired,
+                timestamp: PropTypes.string.isRequired,
             }).isRequired,
         }).isRequired,
     };
@@ -52,6 +54,7 @@ class Board extends React.Component {
                             </div>
                         ))}
                     </div>
+                    <Delete id={this.props.game._id} timestamp={this.props.game.boards.timestamp} />
                 </div>
             </div>
         );

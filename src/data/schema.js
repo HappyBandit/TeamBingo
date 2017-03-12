@@ -13,19 +13,20 @@ import {
 } from 'graphql';
 
 import me from './queries/me';
-import news from './queries/news';
 import game from './queries/game';
 import createGame from './mutations/createGame';
 import createBoard from './mutations/createBoard';
 import updateConfig from './mutations/updateConfig';
 import addBox from './mutations/addBox';
+import deleteBoard from './mutations/deleteBoard';
+import removeBox from './mutations/removeBox';
+import deleteGame from './mutations/deleteGame';
 
 const schema = new Schema({
     query: new ObjectType({
         name: 'Query',
         fields: {
             me,
-            news,
             game,
         },
     }),
@@ -36,6 +37,9 @@ const schema = new Schema({
             updateConfig,
             addBox,
             createBoard,
+            deleteBoard,
+            removeBox,
+            deleteGame,
         },
     }),
 });

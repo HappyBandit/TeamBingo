@@ -1,0 +1,6 @@
+{
+  "name": "CurrentBoards",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./CurrentBoards.js"
+}

@@ -29,7 +29,7 @@ class Home extends React.Component {
                     <h1>Current Games</h1>
                     {this.props.games.map(item => (
                         <article key={item._id} className={s.newsItem}>
-                            <Link to={`game/${item._id}`}>
+                            <Link to={`/game/${item._id}`}>
                                 <h1 className={s.newsTitle}>{item.name}</h1>
                             </Link>
                             <div className={s.newsDesc}>{item.type}</div>

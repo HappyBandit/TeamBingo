@@ -9,7 +9,6 @@
 
 import PouchDB from 'pouchdb';
 import sampleSize from 'lodash/sampleSize';
-import clone from 'lodash/clone';
 import { GraphQLNonNull, GraphQLString, GraphQLID } from 'graphql';
 import BoardItemType from '../types/BoardItemType';
 
@@ -32,7 +31,7 @@ const createBoard = {
         return db.get(gameId).then((result) => {
             const numBoxes = result.config.columns * result.config.rows;
 
-            const boxes = clone(result.boxes);
+            const boxes = result.boxes.filter(x => x.active);
 
             while (boxes.length < numBoxes) {
                 boxes.push({ text: '', active: true });
@@ -51,7 +50,9 @@ const createBoard = {
             }
 
             return db.put(result);
-        }).then(result => db.get(result.id)).then(doc => doc.boards.find(x => x.timestamp === timestamp));
+        })
+        .then(result => db.get(result.id))
+        .then(doc => doc.boards.find(x => x.timestamp === timestamp));
     },
 };
 
