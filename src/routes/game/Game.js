@@ -12,6 +12,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Game.css';
 import Config from './components/Config';
 import Boxes from './components/Boxes';
+import NewBoard from './components/NewBoard';
 
 class Game extends React.Component {
     static propTypes = {
@@ -37,6 +38,7 @@ class Game extends React.Component {
                     <h1>{this.props.game.name}</h1>
                     <Config id={this.props.game._id} config={this.props.game.config} />
                     <Boxes id={this.props.game._id} boxes={this.props.game.boxes} />
+                    <NewBoard id={this.props.game._id} />
                 </div>
             </div>
         );

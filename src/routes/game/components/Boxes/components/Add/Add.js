@@ -33,7 +33,7 @@ class Add extends React.Component {
 
     addBox () {
         if (this.state.text.length > 0) {
-            graphQlFetch(`mutation{addBox(id:"${this.props.id}",box:{text:"${this.state.text}",active:${this.state.active},timestamp:"${Date.now()}"}){boxes{text,active,timestamp}}}`)
+            graphQlFetch(`mutation{addBox(id:"${this.props.id}",box:{text:"${this.state.text}",active:${this.state.active}}){boxes{text,active,timestamp}}}`)
             .then((resp) => {
                 this.props.onAdd(resp.addBox.boxes);
             });

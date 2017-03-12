@@ -16,6 +16,7 @@ import {
     GraphQLID as IdType,
 } from 'graphql';
 import BoxIemType from './BoxItemType';
+import BoardItemType from './BoardItemType';
 import ConfigType from './ConfigType';
 
 const GameType = new ObjectType({
@@ -26,6 +27,18 @@ const GameType = new ObjectType({
         type: { type: new NonNull(IntegerType) },
         name: { type: new NonNull(StringType) },
         boxes: { type: new List(BoxIemType) },
+        boards: {
+            type: new List(BoardItemType),
+            args: {
+                timestamp: {
+                    type: IdType,
+                },
+            },
+            resolve (parent, { timestamp }) {
+                const board = parent.boards.filter(x => x.timestamp === timestamp);
+                return board;
+            },
+        },
         config: { type: ConfigType },
     },
 });

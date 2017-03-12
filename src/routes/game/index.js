@@ -7,6 +7,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+/* eslint-disable global-require */
+
 import React from 'react';
 import Layout from '../../components/Layout';
 import Game from './Game';
@@ -16,7 +18,7 @@ export default {
     path: '/game',
     children: [
         {
-            path: '/',                   // www.example.com/admin/users
+            path: '/',
             action () {
                 return {
                     redirect: '/',
@@ -24,26 +26,38 @@ export default {
             },
         },
         {
-            path: '/:id',          // www.example.com/admin/users/john
-            async action (cxt, { id }) {
-                const resp = await fetch('/graphql', {
-                    method: 'post',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
+            path: '/:id',
+
+            children: [
+                {
+                    path: '/',
+                    async action (cxt, { id }) {
+                        const resp = await fetch('/graphql', {
+                            method: 'post',
+                            headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                query: `query{game(id:"${id}"){_id,name,type,config{rows,columns},boxes{text,active,timestamp}}}`,
+                            }),
+                            credentials: 'include',
+                        });
+                        const { data } = await resp.json();
+                        if (!data || !data.game) throw new Error('Failed to load the news feed.');
+                        data.game = data.game[0];
+                        return {
+                            title: `${data.game.name}`,
+                            component: <Layout><Game game={data.game} /></Layout>,
+                        };
                     },
-                    body: JSON.stringify({
-                        query: `query{game(id:"${id}"){_id,name,type,config{rows,columns},boxes{text,active,timestamp}}}`,
-                    }),
-                    credentials: 'include',
-                });
-                const { data } = await resp.json();
-                if (!data || !data.game) throw new Error('Failed to load the news feed.');
-                data.game = data.game[0];
-                return {
-                    title: `${data.game.name}`,
-                    component: <Layout><Game game={data.game} /></Layout>,
-                };
+                },
+                require('./board').default,
+            ],
+
+            async action ({ next }) {
+                // Execute each child route until one of them return the result
+                return next();
             },
         },
     ],

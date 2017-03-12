@@ -28,6 +28,8 @@ const addBox = {
         const db = new PouchDB('http://localhost:5984/games');
 
         return db.get(id).then((result) => {
+            box.timestamp = Date.now().toString();
+
             if (result.boxes) {
                 result.boxes.push(box);
             } else {

@@ -10,20 +10,20 @@
 import {
     GraphQLObjectType as ObjectType,
     GraphQLString as StringType,
-    GraphQLBoolean as BooleanType,
     GraphQLNonNull as NonNull,
+    GraphQLList as List,
     GraphQLID as IdType,
 } from 'graphql';
+import BoxIemType from './BoxItemType';
 
-const BoxItemType = new ObjectType({
-    name: 'BoxItem',
-    description: 'The Individual Boxes on a Game Board',
+const BoardItemType = new ObjectType({
+    name: 'BoardItem',
+    description: 'An Individual Board created from a game',
     fields: {
-        active: { type: new NonNull(BooleanType) },
-        text: { type: new NonNull(StringType) },
-        timestamp: { type: IdType },
-        selected: { type: BooleanType },
+        name: { type: new NonNull(StringType) },
+        boxes: { type: new List(BoxIemType) },
+        timestamp: { type: new NonNull(IdType) },
     },
 });
 
-export default BoxItemType;
+export default BoardItemType;
