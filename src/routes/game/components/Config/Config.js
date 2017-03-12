@@ -11,6 +11,7 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Config.css';
 import Size from './components/Size';
+import Delete from './components/Delete';
 
 class Config extends React.Component {
     static propTypes = {
@@ -31,7 +32,14 @@ class Config extends React.Component {
             <div className="panel panel-default">
                 <div className="panel-heading">Config</div>
                 <div className="panel-body">
-                    <Size id={this.props.id} config={this.props.config} />
+                    <div className="row">
+                        <div className="col-xs-12 col-md-6">
+                            <Size id={this.props.id} config={this.props.config} />
+                        </div>
+                        <div className="col-xs-12 col-md-6">
+                            <Delete id={this.props.id} />
+                        </div>
+                    </div>
                 </div>
             </div>
         );

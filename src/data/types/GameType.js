@@ -35,8 +35,14 @@ const GameType = new ObjectType({
                 },
             },
             resolve (parent, { timestamp }) {
-                const board = parent.boards.filter(x => x.timestamp === timestamp);
-                return board;
+                let resp;
+                if (timestamp) {
+                    resp = parent.boards.filter(x => x.timestamp === timestamp);
+                } else {
+                    resp = parent.boards;
+                }
+
+                return resp;
             },
         },
         config: { type: ConfigType },

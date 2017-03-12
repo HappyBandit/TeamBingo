@@ -11,6 +11,7 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Boxes.css';
 import Add from './components/Add';
+import Delete from './components/Delete';
 
 class Boxes extends React.Component {
     static propTypes = {
@@ -31,6 +32,7 @@ class Boxes extends React.Component {
         super(props);
 
         this.onAdd = this.onAdd.bind(this);
+        this.onDelete = this.onDelete.bind(this);
 
         this.state = {
             boxes: props.boxes || [],
@@ -38,6 +40,10 @@ class Boxes extends React.Component {
     }
 
     onAdd (boxes) {
+        this.setState({ boxes });
+    }
+
+    onDelete (boxes) {
         this.setState({ boxes });
     }
 
@@ -65,9 +71,7 @@ class Boxes extends React.Component {
                                     {item.active ? 'Active' : 'Disabled'}
                                 </td>
                                 <td className={s.tableButton}>
-                                    <button className="btn btn-danger">
-                                        Delete
-                                    </button>
+                                    <Delete id={this.props.id} timestamp={item.timestamp} onDelete={this.onDelete} />
                                 </td>
                             </tr>
                         ))}
