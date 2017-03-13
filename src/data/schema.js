@@ -21,6 +21,7 @@ import addBox from './mutations/addBox';
 import deleteBoard from './mutations/deleteBoard';
 import removeBox from './mutations/removeBox';
 import deleteGame from './mutations/deleteGame';
+import selectBox from './mutations/selectBox';
 
 const schema = new Schema({
     query: new ObjectType({
@@ -40,6 +41,7 @@ const schema = new Schema({
             deleteBoard,
             removeBox,
             deleteGame,
+            selectBox,
         },
     }),
 });

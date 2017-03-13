@@ -11,6 +11,7 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Board.css';
 import Delete from './components/Delete';
+import Box from './components/Box';
 
 class Board extends React.Component {
     static propTypes = {
@@ -41,17 +42,13 @@ class Board extends React.Component {
                     <h1>{this.props.game.boards.name}</h1>
                     <div className={s.board}>
                         {this.props.game.boards.boxes.map((box, index) => (
-                            <div
+                            <Box
                                 key={box.timestamp || index}
-                                className={`${s.box} ${box.selected ? s.selected : ''}`}
-                                style={{ width: `${100 / this.props.game.config.columns}%` }}
-                            >
-                                <div className={s.square}>
-                                    <p>
-                                        {box.text || '\u00A0'}
-                                    </p>
-                                </div>
-                            </div>
+                                gameId={this.props.game._id}
+                                boardTimestamp={this.props.game.boards.timestamp}
+                                box={box}
+                                width={`${100 / this.props.game.config.columns}%`}
+                            />
                         ))}
                     </div>
                     <Delete id={this.props.game._id} timestamp={this.props.game.boards.timestamp} />

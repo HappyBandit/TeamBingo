@@ -7,9 +7,9 @@ Build a website using the newest technologies to allow for teams to create bingo
 
 ## Features
 * Create a Bingo Game
+* Create a Board
 
 ## Future
-* Create a Board
 * Run a Game
 * Call Bingo
 
