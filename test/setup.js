@@ -11,8 +11,8 @@
 
 process.env.NODE_ENV = 'test';
 
-function noop() {
-  return null;
+function noop () {
+    return null;
 }
 
 require.extensions['.css'] = noop;

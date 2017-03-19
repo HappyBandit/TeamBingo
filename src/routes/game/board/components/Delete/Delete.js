@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
+import { inject } from 'mobx-react';
 import graphQlFetch from '../../../../../core/graphQlFetch';
 import history from '../../../../../core/history';
 
+@inject('notification')
 class Delete extends React.Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
@@ -22,6 +24,9 @@ class Delete extends React.Component {
             } else {
                 history.push('/error');
             }
+        })
+        .catch((error) => {
+            this.props.notification.error(error.message);
         });
     }
 
@@ -33,5 +38,15 @@ class Delete extends React.Component {
         );
     }
 }
+
+Delete.wrappedComponent.propTypes = {
+    notification: PropTypes.shape({
+        error: PropTypes.func,
+    }),
+};
+
+Delete.wrappedComponent.defaultProps = {
+    notification: {},
+};
 
 export default Delete;

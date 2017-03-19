@@ -27,7 +27,12 @@ const removeBox = {
         const db = new PouchDB('http://localhost:5984/games');
 
         return db.get(gameId).then((result) => {
-            result.boxes.splice(result.boxes.findIndex(x => x.timestamp === timestamp), 1);
+            const index = result.boxes.findIndex(x => x.timestamp === timestamp);
+            if (index > -1) {
+                result.boxes.splice(index, 1);
+            } else {
+                throw Error('Box not found');
+            }
 
             return db.put(result);
         }).then(result => db.get(result.id)).then(doc => doc);

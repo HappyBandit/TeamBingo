@@ -14,7 +14,7 @@ script:
   - yarn lint
   - yarn test
 after_success:
-  - yarn build
+  - yarn run build -- --release
 deploy:
   provider: script
   skip_cleanup: true
