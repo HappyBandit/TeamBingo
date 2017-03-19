@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { inject } from 'mobx-react';
 import s from './Box.css';
 import graphQlFetch from '../../../../../core/graphQlFetch';
 
+@inject('notification')
 class Box extends React.Component {
     static propTypes = {
         gameId: PropTypes.string.isRequired,
@@ -34,6 +36,9 @@ class Box extends React.Component {
             graphQlFetch(`mutation{selectBox(boxTimestamp:"${this.state.box.timestamp}",gameId:"${this.props.gameId}",selected:${!this.state.box.selected},boardTimestamp:"${this.props.boardTimestamp}"){text,selected,timestamp}}`)
             .then((resp) => {
                 this.setState({ box: resp.selectBox });
+            })
+            .catch((error) => {
+                this.props.notification.error(error.message);
             });
         }
     }
@@ -55,5 +60,15 @@ class Box extends React.Component {
         );
     }
 }
+
+Box.wrappedComponent.propTypes = {
+    notification: PropTypes.shape({
+        error: PropTypes.func,
+    }),
+};
+
+Box.wrappedComponent.defaultProps = {
+    notification: {},
+};
 
 export default withStyles(s)(Box);

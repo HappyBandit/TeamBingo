@@ -13,8 +13,12 @@ async function graphQlFetch (query) {
         }),
         credentials: 'include',
     });
-    const { data } = await resp.json();
-    if (!data) throw new Error('Failed to update.');
+    const { data, errors } = await resp.json();
+
+    if (errors) {
+        throw new Error(JSON.stringify(errors));
+    }
+
     return data;
 }
 
