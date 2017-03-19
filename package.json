@@ -141,7 +141,8 @@
           "rewire"
         ]
       }
-    }
+    },
+    "plugins": ["transform-decorators-legacy"]
   },
   "eslintConfig": {
     "parser": "babel-eslint",
@@ -234,6 +235,9 @@
       "stylefmt",
       "stylelint",
       "git add"
+    ],
+    "plugins":[
+      "transform-decorators-legacy"
     ]
   },
   "scripts": {
