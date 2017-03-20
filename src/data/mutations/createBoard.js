@@ -26,12 +26,12 @@ const createBoard = {
     },
     resolve (root, { name, gameId }) {
         const db = new PouchDB('http://localhost:5984/games');
-
         const timestamp = Date.now().toString();
-        return db.get(gameId).then((result) => {
-            const numBoxes = result.config.columns * result.config.rows;
 
-            const boxes = result.boxes.filter(x => x.active);
+        function deltaBoard (doc) {
+            const numBoxes = doc.config.columns * doc.config.rows;
+
+            const boxes = doc.boxes.filter(x => x.active);
 
             while (boxes.length < numBoxes) {
                 boxes.push({ text: '', active: true });
@@ -43,15 +43,16 @@ const createBoard = {
                 timestamp,
             };
 
-            if (result.boards) {
-                result.boards.push(board);
+            if (doc.boards) {
+                doc.boards.push(board);
             } else {
-                result.boards = [board];
+                doc.boards = [board];
             }
+            return doc;
+        }
 
-            return db.put(result);
-        })
-        .then(result => db.get(result.id))
+        return db.upsert(gameId, deltaBoard)
+        .then(() => db.get(gameId))
         .then(doc => doc.boards.find(x => x.timestamp === timestamp));
     },
 };

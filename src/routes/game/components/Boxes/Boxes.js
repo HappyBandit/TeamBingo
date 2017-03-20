@@ -8,10 +8,8 @@
  */
 
 import React, { PropTypes } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Boxes.css';
 import Add from './components/Add';
-import Delete from './components/Delete';
+import Box from './components/Box';
 
 class Boxes extends React.Component {
     static propTypes = {
@@ -31,19 +29,14 @@ class Boxes extends React.Component {
     constructor (props) {
         super(props);
 
-        this.onAdd = this.onAdd.bind(this);
-        this.onDelete = this.onDelete.bind(this);
+        this.onChange = this.onChange.bind(this);
 
         this.state = {
             boxes: props.boxes || [],
         };
     }
 
-    onAdd (boxes) {
-        this.setState({ boxes });
-    }
-
-    onDelete (boxes) {
+    onChange (boxes) {
         this.setState({ boxes });
     }
 
@@ -60,30 +53,23 @@ class Boxes extends React.Component {
                 <table className="table table-striped table-hover">
                     <tbody>
                         {this.state.boxes.map((item, index) => (
-                            <tr key={item.timestamp} className={item.active ? s.activeBox : s.disabledBox}>
-                                <td className={s.tableIndex}>
-                                    {index + 1}
-                                </td>
-                                <td className={s.tableText}>
-                                    {item.text}
-                                </td>
-                                <td className={s.tableActive}>
-                                    {item.active ? 'Active' : 'Disabled'}
-                                </td>
-                                <td className={s.tableButton}>
-                                    <Delete id={this.props.id} timestamp={item.timestamp} onDelete={this.onDelete} />
-                                </td>
-                            </tr>
+                            <Box
+                                id={this.props.id}
+                                key={item.timestamp}
+                                box={item}
+                                index={index}
+                                onChange={this.onChange}
+                            />
                         ))}
                     </tbody>
                 </table>
 
                 <div className="panel-footer">
-                    <Add id={this.props.id} onAdd={this.onAdd} />
+                    <Add id={this.props.id} onAdd={this.onChange} />
                 </div>
             </div>
         );
     }
 }
 
-export default withStyles(s)(Boxes);
+export default Boxes;

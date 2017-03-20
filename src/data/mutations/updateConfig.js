@@ -27,10 +27,12 @@ const createGame = {
     resolve (root, { id, config }) {
         const db = new PouchDB('http://localhost:5984/games');
 
-        return db.get(id).then((result) => {
-            Object.assign(result, { config });
-            return db.put(result);
-        }).then(result => db.get(result.id)).then(doc => doc);
+        function deltaConfig (doc) {
+            Object.assign(doc, { config });
+            return doc;
+        }
+
+        return db.upsert(id, deltaConfig).then(() => db.get(id)).then(doc => doc);
     },
 };
 

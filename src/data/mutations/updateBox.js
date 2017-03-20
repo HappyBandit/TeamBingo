@@ -10,8 +10,11 @@
 import PouchDB from 'pouchdb';
 import { GraphQLNonNull, GraphQLID } from 'graphql';
 import GameType from '../types/GameType';
+import BoxInputType from '../types/BoxInputType';
 
-const removeBox = {
+PouchDB.plugin(require('pouchdb-upsert'));
+
+const updateBox = {
     type: GameType,
     args: {
         timestamp: {
@@ -22,16 +25,20 @@ const removeBox = {
             name: 'Game ID to make board from',
             type: new GraphQLNonNull(GraphQLID),
         },
+        box: {
+            name: 'New Box values',
+            type: BoxInputType,
+        },
     },
-    resolve (root, { timestamp, gameId }) {
+    resolve (root, { timestamp, gameId, box }) {
         const db = new PouchDB('http://localhost:5984/games');
 
         function deltaBox (doc) {
             const index = doc.boxes.findIndex(x => x.timestamp === timestamp);
             if (index > -1) {
-                doc.boxes.splice(index, 1);
+                Object.assign(doc.boxes[index], box);
             } else {
-                return false;
+                throw Error('Box not found');
             }
             return doc;
         }
@@ -40,4 +47,4 @@ const removeBox = {
     },
 };
 
-export default removeBox;
+export default updateBox;

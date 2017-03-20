@@ -5614,6 +5614,18 @@ postcss@^5.0.0, postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.
     source-map "^0.5.6"
     supports-color "^3.2.3"
 
+pouchdb-promise@^6.1.2:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/pouchdb-promise/-/pouchdb-promise-6.1.2.tgz#e89f021e513e47ded37195f45b080dd52c4ee6a7"
+  dependencies:
+    lie "3.1.0"
+
+pouchdb-upsert@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/pouchdb-upsert/-/pouchdb-upsert-2.1.0.tgz#60ea2ecc7b2484c027c442df3877811f2ad0e3b7"
+  dependencies:
+    pouchdb-promise "^6.1.2"
+
 pouchdb@^6.1.2:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/pouchdb/-/pouchdb-6.1.2.tgz#5ceb310f705f0a7fd23d25fe1a365f36b30ac28b"
