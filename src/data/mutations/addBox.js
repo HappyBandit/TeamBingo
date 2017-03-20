@@ -27,16 +27,18 @@ const addBox = {
     resolve (root, { id, box }) {
         const db = new PouchDB('http://localhost:5984/games');
 
-        return db.get(id).then((result) => {
+        function deltaBox (doc) {
             box.timestamp = Date.now().toString();
 
-            if (result.boxes) {
-                result.boxes.push(box);
+            if (doc.boxes) {
+                doc.boxes.push(box);
             } else {
-                result.boxes = [box];
+                doc.boxes = [box];
             }
-            return db.put(result);
-        }).then(result => db.get(result.id)).then(doc => doc);
+            return doc;
+        }
+
+        return db.upsert(id, deltaBox).then(() => db.get(id)).then(doc => doc);
     },
 };
 

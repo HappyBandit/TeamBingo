@@ -1,13 +1,17 @@
 import React, { PropTypes } from 'react';
 import { inject } from 'mobx-react';
-import graphQlFetch from '../../../../../../core/graphQlFetch';
+import graphQlFetch from '../../../../../../../../core/graphQlFetch';
 
 @inject('notification')
 class Delete extends React.Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
-        timestamp: PropTypes.string.isRequired,
-        onDelete: PropTypes.func.isRequired,
+        box: PropTypes.shape({
+            text: PropTypes.string.isRequired,
+            active: PropTypes.bool.isRequired,
+            timestamp: PropTypes.string.isRequired,
+        }).isRequired,
+        onChange: PropTypes.func.isRequired,
     };
 
     constructor (props) {
@@ -17,9 +21,9 @@ class Delete extends React.Component {
     }
 
     deleteBox () {
-        graphQlFetch(`mutation{removeBox(timestamp:"${this.props.timestamp}",gameId:"${this.props.id}"){boxes{text,active,timestamp}}}`)
+        graphQlFetch(`mutation{removeBox(timestamp:"${this.props.box.timestamp}",gameId:"${this.props.id}"){boxes{text,active,timestamp}}}`)
         .then((resp) => {
-            this.props.onDelete(resp.removeBox.boxes);
+            this.props.onChange(resp.removeBox.boxes);
         })
         .catch((error) => {
             this.props.notification.error(error.message);

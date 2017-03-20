@@ -26,11 +26,13 @@ const deleteBoard = {
     resolve (root, { timestamp, gameId }) {
         const db = new PouchDB('http://localhost:5984/games');
 
-        return db.get(gameId).then((result) => {
-            result.boards.splice(result.boards.findIndex(x => x.timestamp === timestamp), 1);
 
-            return db.put(result);
-        }).then(result => db.get(result.id)).then(doc => doc);
+        function deltaBoard (doc) {
+            doc.boards.splice(doc.boards.findIndex(x => x.timestamp === timestamp), 1);
+            return doc;
+        }
+
+        return db.upsert(gameId, deltaBoard).then(() => db.get(gameId)).then(doc => doc);
     },
 };
 
