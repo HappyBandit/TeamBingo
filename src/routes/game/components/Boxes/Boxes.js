@@ -17,8 +17,11 @@ class Boxes extends React.Component {
             text: PropTypes.string.isRequired,
             active: PropTypes.bool.isRequired,
             timestamp: PropTypes.string.isRequired,
+            selected: PropTypes.bool,
         })),
         id: PropTypes.string.isRequired,
+        type: PropTypes.number.isRequired,
+        onSelect: PropTypes.func.isRequired,
     };
 
     static defaultProps = {
@@ -58,7 +61,9 @@ class Boxes extends React.Component {
                                 key={item.timestamp}
                                 box={item}
                                 index={index}
+                                type={this.props.type}
                                 onChange={this.onChange}
+                                onSelect={this.props.onSelect}
                             />
                         ))}
                     </tbody>

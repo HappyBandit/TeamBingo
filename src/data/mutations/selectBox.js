@@ -34,6 +34,13 @@ const selectBox = {
     resolve (root, { gameId, boxTimestamp, selected, boardTimestamp }) {
         const db = new PouchDB('http://localhost:5984/games');
 
+        function updateBox (boxes) {
+            const box = boxes.find(x => x.timestamp === boxTimestamp);
+            if (box) {
+                box.selected = selected;
+            }
+        }
+
         function deltaBox (doc) {
             let item;
 
@@ -42,15 +49,20 @@ const selectBox = {
             } else {
                 item = doc;
             }
+
             if (item) {
-                const box = item.boxes.find(x => x.timestamp === boxTimestamp);
-                if (box) {
-                    box.selected = selected;
+                updateBox(item.boxes);
+
+                if (item.boards) {
+                    item.boards.forEach((board) => {
+                        updateBox(board.boxes);
+                    });
                 }
             }
 
             return doc;
         }
+
         return db.upsert(gameId, deltaBox).then(() => db.get(gameId)).then((doc) => {
             let item;
             let box;
@@ -60,6 +72,7 @@ const selectBox = {
             } else {
                 item = doc;
             }
+
             if (item) {
                 box = item.boxes.find(x => x.timestamp === boxTimestamp);
             }

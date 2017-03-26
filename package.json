@@ -44,6 +44,7 @@
     "react-formal": "^0.24.3",
     "react-notification-system": "^0.2.13",
     "sequelize": "^3.30.1",
+    "socket.io": "^1.7.3",
     "source-map-support": "^0.4.11",
     "sqlite3": "^3.1.8",
     "universal-router": "^2.0.0",
