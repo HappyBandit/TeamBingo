@@ -71,7 +71,7 @@ class Game extends React.Component {
                 <div className={s.container}>
                     <h1>{this.props.game.name}</h1>
                     <Config id={this.props.game._id} config={this.props.game.config} />
-                    <Boxes id={this.props.game._id} boxes={this.props.game.boxes} onSelect={this.selectBox} />
+                    <Boxes id={this.props.game._id} boxes={this.props.game.boxes} type={this.props.game.type} onSelect={this.selectBox} />
                     <NewBoard id={this.props.game._id} />
                     <CurrentBoards id={this.props.game._id} boards={this.props.game.boards} />
                 </div>

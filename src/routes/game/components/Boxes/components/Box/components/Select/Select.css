@@ -2,7 +2,7 @@
   position: relative;
   display: inline-block;
   vertical-align: top;
-  width: 60px; /* from 56px to 60px */
+  width: 90px; /* Change for different widths */
   height: 26px; /* from 20px to 26px */
   padding: 3px;
   margin-bottom: 0;
@@ -119,7 +119,7 @@
 }
 
 .switchInput:checked ~ .switchHandle {
-  left: 38px; /* from 40px to 38px */
+  left: 68px; /* Change to move the knob when active */
   box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 

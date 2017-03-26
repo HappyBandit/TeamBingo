@@ -73,6 +73,7 @@ class Board extends React.Component {
                             <Box
                                 key={box.timestamp || index}
                                 gameId={this.props.game._id}
+                                gameType={this.props.game.type}
                                 boardTimestamp={this.props.game.boards.timestamp}
                                 box={box}
                                 width={`${100 / this.props.game.config.columns}%`}

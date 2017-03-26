@@ -20,6 +20,7 @@ class Boxes extends React.Component {
             selected: PropTypes.bool,
         })),
         id: PropTypes.string.isRequired,
+        type: PropTypes.number.isRequired,
         onSelect: PropTypes.func.isRequired,
     };
 
@@ -60,6 +61,7 @@ class Boxes extends React.Component {
                                 key={item.timestamp}
                                 box={item}
                                 index={index}
+                                type={this.props.type}
                                 onChange={this.onChange}
                                 onSelect={this.props.onSelect}
                             />

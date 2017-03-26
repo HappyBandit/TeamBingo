@@ -142,10 +142,8 @@ app.get('*', async (req, res, next) => {
 
 io.on('connection', (socket) => {
     const room = `game-${socket.handshake.query.gameId}`;
-    console.log(`ROOM: ${room}`);
     socket.join(room);
     socket.on('click:box', (msg) => {
-        console.log(`MSG: ${JSON.stringify(msg)}`);
         io.to(room).emit('click:box', msg);
     });
 });

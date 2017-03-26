@@ -8,6 +8,7 @@ import s from './Box.css';
 class Box extends React.Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
+        type: PropTypes.number.isRequired,
         box: PropTypes.shape({
             text: PropTypes.string.isRequired,
             active: PropTypes.bool.isRequired,
@@ -29,7 +30,7 @@ class Box extends React.Component {
                     {this.props.box.text}
                 </td>
                 <td className={s.tableActive}>
-                    <Select {...this.props} />
+                    {(this.props.type === 0) ? (<Select {...this.props} />) : ('')}
                 </td>
                 <td className={s.tableActive}>
                     <Active {...this.props} />

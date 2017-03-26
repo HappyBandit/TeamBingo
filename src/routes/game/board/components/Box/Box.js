@@ -8,6 +8,7 @@ import graphQlFetch from '../../../../../core/graphQlFetch';
 class Box extends React.Component {
     static propTypes = {
         gameId: PropTypes.string.isRequired,
+        gameType: PropTypes.number.isRequired,
         width: PropTypes.string.isRequired,
         boardTimestamp: PropTypes.string,
         box: PropTypes.shape({
@@ -32,7 +33,7 @@ class Box extends React.Component {
     }
 
     clickBox () {
-        if (this.state.box.timestamp !== null) {
+        if (this.state.box.timestamp !== null && this.props.gameType === 1) {
             graphQlFetch(`mutation{selectBox(boxTimestamp:"${this.state.box.timestamp}",gameId:"${this.props.gameId}",selected:${!this.state.box.selected},boardTimestamp:"${this.props.boardTimestamp}"){text,selected,timestamp}}`)
             .then((resp) => {
                 this.setState({ box: resp.selectBox });
