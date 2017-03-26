@@ -29,7 +29,11 @@ const createBoard = {
         const timestamp = Date.now().toString();
 
         function deltaBoard (doc) {
-            const numBoxes = doc.config.columns * doc.config.rows;
+            const freeSpace = doc.config.freeSpace;
+            let numBoxes = doc.config.columns * doc.config.rows;
+            if (freeSpace) {
+                numBoxes -= 1;
+            }
 
             const boxes = doc.boxes.filter(x => x.active);
 
@@ -42,6 +46,11 @@ const createBoard = {
                 boxes: sampleSize(boxes, numBoxes),
                 timestamp,
             };
+
+            if (freeSpace) {
+                const middle = Math.floor((board.boxes.length) / 2);
+                board.boxes.splice(middle, 0, { text: 'Free Space', active: true, selected: true });
+            }
 
             if (doc.boards) {
                 doc.boards.push(board);
