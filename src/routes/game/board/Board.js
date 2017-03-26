@@ -22,6 +22,7 @@ class Board extends React.Component {
             config: PropTypes.shape({
                 columns: PropTypes.number,
                 rows: PropTypes.number,
+                freeSpace: PropTypes.bool,
             }),
             boards: PropTypes.shape({
                 name: PropTypes.string.isRequired,

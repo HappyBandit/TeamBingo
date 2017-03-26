@@ -60,41 +60,48 @@ class Size extends React.Component {
 
     saveState () {
         graphQlFetch(`mutation{updateConfig(id:"${this.props.id}",config:{columns:${this.state.columns},rows:${this.state.rows}}){_id}}`)
-            .then(() => {
-                this.toggleEdit();
-            });
+        .then(() => {
+            this.toggleEdit();
+        });
     }
 
     render () {
-        return (
-            <div className={s.root}>
-                {this.state.isEdit ?
-                    (
-                        <div>
-                            <label htmlFor="column-edit">Columns:</label>
-                            <input
-                                id="column-edit"
-                                type="text"
-                                value={this.state.columns}
-                                onChange={this.onChangeColumn}
-                            />
-                            <label htmlFor="row-edit">Rows:</label>
-                            <input
-                                id="row-edit" type="text" value={this.state.rows}
-                                onChange={this.onChangeRow}
-                            />
-                            <button onClick={this.saveState}>Save</button>
-                        </div>
-                    ) :
-                    (
-                        <div>
-                            <p>Columns: {this.state.columns}, Rows: {this.state.rows}</p>
-                            <button onClick={this.toggleEdit}>Edit</button>
-                        </div>
-                    )
-                }
-            </div>
-        );
+        let html;
+        if (this.state.isEdit) {
+            html = (
+                <div className="form-inline">
+                    <div className="form-group">
+                        <label htmlFor="column-edit">Columns:</label>
+                        <input
+                            id="column-edit"
+                            type="text"
+                            className="form-control"
+                            value={this.state.columns}
+                            onChange={this.onChangeColumn}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="row-edit">Rows:</label>
+                        <input
+                            id="row-edit"
+                            type="text"
+                            value={this.state.rows}
+                            className="form-control"
+                            onChange={this.onChangeRow}
+                        />
+                    </div>
+                    <button className="btn btn-primary" onClick={this.saveState}>Save</button>
+                </div>);
+        } else {
+            html = (
+                <div>
+                    <p className={s.text}>Columns: {this.state.columns}, Rows: {this.state.rows}</p>
+                    <button className="btn btn-primary" onClick={this.toggleEdit}>Edit</button>
+                </div>
+            );
+        }
+
+        return html;
     }
 }
 

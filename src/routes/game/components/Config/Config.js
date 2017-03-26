@@ -12,18 +12,20 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Config.css';
 import Size from './components/Size';
 import Delete from './components/Delete';
+import Free from './components/Free';
 
 class Config extends React.Component {
     static propTypes = {
         config: PropTypes.shape({
             columns: PropTypes.number,
             rows: PropTypes.number,
+            freeSpace: PropTypes.bool,
         }),
         id: PropTypes.string.isRequired,
     };
 
     static defaultProps = {
-        config: [],
+        config: {},
         id: '',
     };
 
@@ -32,12 +34,16 @@ class Config extends React.Component {
             <div className="panel panel-default">
                 <div className="panel-heading">Config</div>
                 <div className="panel-body">
+                    <p>Any changes to the configuration will require all users to rebuild their boards to get the new data</p>
                     <div className="row">
-                        <div className="col-xs-12 col-md-6">
+                        <div className="col-xs-12 col-md-8">
                             <Size id={this.props.id} config={this.props.config} />
                         </div>
-                        <div className="col-xs-12 col-md-6">
+                        <div className="col-xs-12 col-md-4">
                             <Delete id={this.props.id} />
+                        </div>
+                        <div className="col-xs-12 col-md-6">
+                            <Free id={this.props.id} selected={this.props.config.freeSpace} />
                         </div>
                     </div>
                 </div>
