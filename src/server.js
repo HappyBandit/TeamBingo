@@ -33,7 +33,6 @@ import { port, auth } from './config';
 
 const app = express();
 const server = http.Server(app);
-server.listen(80);
 const io = socketIo(server);
 
 //
@@ -175,7 +174,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 // -----------------------------------------------------------------------------
 /* eslint-disable no-console */
 models.sync().catch(err => console.error(err.stack)).then(() => {
-    app.listen(port, () => {
+    server.listen(port, () => {
         console.log(`The server is running at http://localhost:${port}/`);
     });
 });
