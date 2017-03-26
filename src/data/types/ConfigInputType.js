@@ -10,15 +10,16 @@
 import {
     GraphQLInputObjectType as ObjectInputType,
     GraphQLInt as IntegerType,
-    GraphQLNonNull as NonNull,
+    GraphQLBoolean as BoolType,
 } from 'graphql';
 
 const ConfigInputType = new ObjectInputType({
     name: 'ConfigInput',
     description: 'The Configuration Input of a Game',
     fields: {
-        columns: { type: new NonNull(IntegerType) },
-        rows: { type: new NonNull(IntegerType) },
+        columns: { type: IntegerType },
+        rows: { type: IntegerType },
+        freeSpace: { type: BoolType },
     },
 });
 

@@ -28,7 +28,7 @@ const createGame = {
         const db = new PouchDB('http://localhost:5984/games');
 
         function deltaConfig (doc) {
-            Object.assign(doc, { config });
+            Object.assign(doc.config, { ...config });
             return doc;
         }
 

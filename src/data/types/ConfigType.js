@@ -10,15 +10,16 @@
 import {
     GraphQLObjectType as ObjectType,
     GraphQLInt as IntegerType,
-    GraphQLNonNull as NonNull,
+    GraphQLBoolean as BoolType,
 } from 'graphql';
 
 const ConfigType = new ObjectType({
     name: 'Config',
     description: 'The Configuration of a Game',
     fields: {
-        columns: { type: new NonNull(IntegerType) },
-        rows: { type: new NonNull(IntegerType) },
+        columns: { type: IntegerType },
+        rows: { type: IntegerType },
+        freeSpace: { type: BoolType },
     },
 });
 
