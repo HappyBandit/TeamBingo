@@ -79,9 +79,9 @@ class Create extends React.Component {
                                                 errorClass={s.hasError}
                                             >
                                                 <option value="-1">Select a Starting Type</option>
-                                                <option value="0">Traditional</option>
-                                                <option value="1">Managed</option>
-                                                <option value="2">Unmanaged</option>
+                                                <option value="0">Managed</option>
+                                                <option value="1">Unmanaged</option>
+                                                <option value="2">Traditional</option>
                                             </Form.Field>
                                             <Form.Message for="type" errorClass={s.errorMessage} />
                                         </div>

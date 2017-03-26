@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Delete from './components/Delete';
 import Active from './components/Active';
+import Select from './components/Select';
 import s from './Box.css';
 
 class Box extends React.Component {
@@ -11,9 +12,11 @@ class Box extends React.Component {
             text: PropTypes.string.isRequired,
             active: PropTypes.bool.isRequired,
             timestamp: PropTypes.string.isRequired,
+            selected: PropTypes.bool,
         }).isRequired,
         index: PropTypes.number.isRequired,
         onChange: PropTypes.func.isRequired,
+        onSelect: PropTypes.func.isRequired,
     };
 
     render () {
@@ -24,6 +27,9 @@ class Box extends React.Component {
                 </td>
                 <td className={s.tableText}>
                     {this.props.box.text}
+                </td>
+                <td className={s.tableActive}>
+                    <Select {...this.props} />
                 </td>
                 <td className={s.tableActive}>
                     <Active {...this.props} />

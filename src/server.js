@@ -9,6 +9,8 @@
 
 import path from 'path';
 import express from 'express';
+import http from 'http';
+import socketIo from 'socket.io';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressJwt from 'express-jwt';
@@ -30,6 +32,9 @@ import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import { port, auth } from './config';
 
 const app = express();
+const server = http.Server(app);
+server.listen(80);
+const io = socketIo(server);
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
@@ -129,6 +134,20 @@ app.get('*', async (req, res, next) => {
     } catch (err) {
         next(err);
     }
+});
+
+//
+// Socket IO setup
+// -----------------------------------------------------------------------------
+
+io.on('connection', (socket) => {
+    const room = `game-${socket.handshake.query.gameId}`;
+    console.log(`ROOM: ${room}`);
+    socket.join(room);
+    socket.on('click:box', (msg) => {
+        console.log(`MSG: ${JSON.stringify(msg)}`);
+        io.to(room).emit('click:box', msg);
+    });
 });
 
 //

@@ -9,6 +9,7 @@
 
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import io from 'socket.io-client';
 import s from './Board.css';
 import Delete from './components/Delete';
 import Box from './components/Box';
@@ -34,6 +35,33 @@ class Board extends React.Component {
             }).isRequired,
         }).isRequired,
     };
+
+    constructor (input) {
+        super(input);
+
+        this.state = {
+            boxes: this.props.game.boards.boxes,
+        };
+
+        if (this.props.game.type === 0) {
+            this.socket = io('http://localhost', { query: `gameId=${this.props.game._id}` });
+        }
+    }
+
+    componentDidMount () {
+        if (this.socket) {
+            this.socket.on('click:box', data => this.setBox({ data }));
+        }
+    }
+
+    setBox ({ data }) {
+        const newBoxes = [...this.state.boxes];
+        const box = newBoxes.find(item => item.timestamp === data.timestamp);
+        box.selected = data.selected;
+        this.setState({
+            boxes: newBoxes,
+        });
+    }
 
     render () {
         return (
