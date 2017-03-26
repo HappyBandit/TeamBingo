@@ -39,12 +39,13 @@ export default {
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                query: `query{game(id:"${id}"){_id,name,type,config{rows,columns},boxes{text,active,timestamp,selected},boards{name,timestamp}}}`,
+                                query: `query{game(id:"${id}"){_id,name,type,config{rows,columns,freeSpace},boxes{text,active,timestamp,selected},boards{name,timestamp}}}`,
                             }),
                             credentials: 'include',
                         });
-                        const { data } = await resp.json();
-                        if (!data || !data.game) throw new Error('Failed to load the news feed.');
+                        const { data, errors } = await resp.json();
+
+                        if (!data || errors) throw new Error(`Failed to load game Data: ${JSON.stringify(errors)}.`);
                         data.game = data.game[0];
                         return {
                             title: `${data.game.name}`,

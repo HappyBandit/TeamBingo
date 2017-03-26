@@ -37,8 +37,8 @@ export default {
                     }),
                     credentials: 'include',
                 });
-                const { data } = await resp.json();
-                if (!data || !data.game) throw new Error('Failed to load the news feed.');
+                const { data, errors } = await resp.json();
+                if (!data || errors) throw new Error('Failed to load the news feed.');
                 data.game = data.game[0];
                 data.game.boards = data.game.boards[0];
 

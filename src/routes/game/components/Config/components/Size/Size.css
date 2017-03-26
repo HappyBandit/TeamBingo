@@ -7,7 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-.root {
-  padding-left: 20px;
-  padding-right: 20px;
+.text {
+  margin: 10px;
+  float: left;
 }
