@@ -42,14 +42,11 @@ class Board extends React.Component {
         this.state = {
             boxes: this.props.game.boards.boxes,
         };
-
-        if (this.props.game.type === 0) {
-            this.socket = io('http://localhost', { query: `gameId=${this.props.game._id}` });
-        }
     }
 
     componentDidMount () {
-        if (this.socket) {
+        if (this.props.game.type === 0) {
+            this.socket = io(`${window.location.protocol}//${window.location.hostname}`, { query: `gameId=${this.props.game._id}` });
             this.socket.on('click:box', data => this.setBox({ data }));
         }
     }

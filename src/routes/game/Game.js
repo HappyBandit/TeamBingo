@@ -49,18 +49,20 @@ class Game extends React.Component {
         this.state = {
             type: this.props.game.type,
         };
+    }
 
+    componentDidMount () {
         this.setType();
     }
 
     setType () {
         if (this.state.type === 0) {
-            this.socket = io('http://localhost', { query: `gameId=${this.props.game._id}` });
+            this.socket = io(`${window.location.protocol}//${window.location.hostname}`, { query: `gameId=${this.props.game._id}` });
         }
     }
 
     selectBox (timestamp, selected) {
-        if (this.state.type === 0) {
+        if (this.socket) {
             this.socket.emit('click:box', { timestamp, selected });
         }
     }
