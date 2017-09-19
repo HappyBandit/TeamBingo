@@ -13,6 +13,7 @@ import io from 'socket.io-client';
 import s from './Game.css';
 import Config from './components/Config';
 import Boxes from './components/Boxes';
+import Patterns from './components/Patterns';
 import NewBoard from './components/NewBoard';
 import CurrentBoards from './components/CurrentBoards';
 
@@ -31,6 +32,11 @@ class Game extends React.Component {
                 active: PropTypes.bool.isRequired,
                 timestamp: PropTypes.string,
                 selected: PropTypes.bool,
+            })),
+            patterns: PropTypes.arrayOf(PropTypes.shape({
+                indexes: PropTypes.array.isRequired,
+                active: PropTypes.bool.isRequired,
+                timestamp: PropTypes.string,
             })),
             boards: PropTypes.arrayOf(PropTypes.shape({
                 name: PropTypes.string.isRequired,
@@ -57,7 +63,7 @@ class Game extends React.Component {
 
     setType () {
         if (this.state.type === 0) {
-            this.socket = io(`${window.location.protocol}//${window.location.hostname}`, { query: `gameId=${this.props.game._id}` });
+            this.socket = io('/', { query: `gameId=${this.props.game._id}` });
         }
     }
 
@@ -74,6 +80,7 @@ class Game extends React.Component {
                     <h1>{this.props.game.name}</h1>
                     <Config id={this.props.game._id} config={this.props.game.config} />
                     <Boxes id={this.props.game._id} boxes={this.props.game.boxes} type={this.props.game.type} onSelect={this.selectBox} />
+                    <Patterns id={this.props.game._id} patterns={this.props.game.patterns} config={this.props.game.config} />
                     <NewBoard id={this.props.game._id} />
                     <CurrentBoards id={this.props.game._id} boards={this.props.game.boards} />
                 </div>
