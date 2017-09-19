@@ -18,6 +18,7 @@ import {
 import BoxIemType from './BoxItemType';
 import BoardItemType from './BoardItemType';
 import ConfigType from './ConfigType';
+import PatternItemType from './PatternItemType';
 
 const GameType = new ObjectType({
     name: 'Game',
@@ -46,6 +47,7 @@ const GameType = new ObjectType({
             },
         },
         config: { type: ConfigType },
+        patterns: { type: new List(PatternItemType) },
     },
 });
 
