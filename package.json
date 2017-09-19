@@ -201,7 +201,8 @@
           ]
         }
       ],
-      "react/no-unused-prop-types": "off"
+      "react/no-unused-prop-types": "off",
+      "react/no-array-index-key": "off"
     }
   },
   "stylelint": {

@@ -47,7 +47,7 @@ class Box extends React.Component {
     render () {
         return (
             <a
-                className={`${s.box} ${this.state.box.selected ? s.selected : ''}`}
+                className={`${s.box} ${this.state.box.selected ? 'bg-success' : 'bg-warning'}`}
                 style={{ width: this.props.width }}
                 onClick={this.clickBox}
                 tabIndex="0"

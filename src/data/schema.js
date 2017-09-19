@@ -23,6 +23,9 @@ import removeBox from './mutations/removeBox';
 import deleteGame from './mutations/deleteGame';
 import selectBox from './mutations/selectBox';
 import updateBox from './mutations/updateBox';
+import addPattern from './mutations/addPattern';
+import updatePattern from './mutations/updatePattern';
+import removePattern from './mutations/removePattern';
 
 const schema = new Schema({
     query: new ObjectType({
@@ -44,6 +47,9 @@ const schema = new Schema({
             deleteGame,
             selectBox,
             updateBox,
+            addPattern,
+            updatePattern,
+            removePattern,
         },
     }),
 });
