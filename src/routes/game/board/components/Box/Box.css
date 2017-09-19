@@ -24,17 +24,17 @@
     text-decoration: none;
     color: #222;
   }
+}
 
-  .square {
-    width: 100%;
-    padding-bottom: 100%;
-    position: relative;
+.square {
+  width: 100%;
+  padding-bottom: 100%;
+  position: relative;
 
-    p {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
+  p {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 }
