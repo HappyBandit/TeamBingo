@@ -54,7 +54,6 @@ class Game extends React.Component {
 
         const bingos = [];
         if (this.props.game.bingo) {
-            console.log('Game');
             this.props.game.boards.forEach((board) => {
                 if (board.bingo) {
                     bingos.push(board.name);
