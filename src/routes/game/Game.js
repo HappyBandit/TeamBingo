@@ -42,6 +42,7 @@ class Game extends React.Component {
                 name: PropTypes.string.isRequired,
                 timestamp: PropTypes.string.isRequired,
             })),
+            bingo: PropTypes.bool,
         }).isRequired,
     };
 
@@ -51,9 +52,19 @@ class Game extends React.Component {
         this.selectBox = this.selectBox.bind(this);
         this.setType = this.setType.bind(this);
 
+        const bingos = [];
+        if (this.props.game.bingo) {
+            console.log('Game');
+            this.props.game.boards.forEach((board) => {
+                if (board.bingo) {
+                    bingos.push(board.name);
+                }
+            });
+        }
 
         this.state = {
             type: this.props.game.type,
+            bingos,
         };
     }
 
@@ -61,9 +72,18 @@ class Game extends React.Component {
         this.setType();
     }
 
+    onBingo ({ data }) {
+        const newBingos = [...this.state.bingos, data.board];
+
+        this.setState({
+            bingos: newBingos,
+        });
+    }
+
     setType () {
         if (this.state.type === 0) {
             this.socket = io('/', { query: `gameId=${this.props.game._id}` });
+            this.socket.on('game:bingo', data => this.onBingo({ data }));
         }
     }
 
@@ -74,13 +94,35 @@ class Game extends React.Component {
     }
 
     render () {
+        let bingos = null;
+
+        if (this.state.bingos && this.state.bingos.length > 0) {
+            bingos = (
+                <div>
+                    <h2>SOMEONE GOT A BINGO</h2>
+                    {this.state.bingos.map(name => (
+                        <h3 key={name}>{name} Got a Bingo</h3>
+                    ))}
+                </div>
+            );
+        }
         return (
             <div className={s.root}>
                 <div className={s.container}>
                     <h1>{this.props.game.name}</h1>
+                    {bingos}
                     <Config id={this.props.game._id} config={this.props.game.config} />
-                    <Boxes id={this.props.game._id} boxes={this.props.game.boxes} type={this.props.game.type} onSelect={this.selectBox} />
-                    <Patterns id={this.props.game._id} patterns={this.props.game.patterns} config={this.props.game.config} />
+                    <Boxes
+                        id={this.props.game._id}
+                        boxes={this.props.game.boxes}
+                        type={this.props.game.type}
+                        onSelect={this.selectBox}
+                    />
+                    <Patterns
+                        id={this.props.game._id}
+                        patterns={this.props.game.patterns}
+                        config={this.props.game.config}
+                    />
                     <NewBoard id={this.props.game._id} />
                     <CurrentBoards id={this.props.game._id} boards={this.props.game.boards} />
                 </div>

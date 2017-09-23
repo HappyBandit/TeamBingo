@@ -34,7 +34,7 @@ class Boxes extends React.Component {
                     <tbody>
                         {this.props.boards.map((item, index) => (
                             <tr key={item.timestamp}>
-                                <td className={s.tableIndex}>
+                                <td className={`${s.tableIndex} ${item.bingo ? s.bingo : null}`}>
                                     {index + 1}
                                 </td>
                                 <td className={s.tableName}>
