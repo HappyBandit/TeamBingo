@@ -10,6 +10,7 @@
 import PouchDB from 'pouchdb';
 import { GraphQLNonNull, GraphQLID, GraphQLBoolean } from 'graphql';
 import BoxItemType from '../types/BoxItemType';
+import { sendMessage } from '../../core/socketUtil';
 
 const selectBox = {
     type: BoxItemType,
@@ -31,8 +32,40 @@ const selectBox = {
             type: GraphQLID,
         },
     },
+
     resolve (root, { gameId, boxTimestamp, selected, boardTimestamp }) {
         const db = new PouchDB('http://localhost:5984/games');
+
+        function checkPatterns (doc) {
+            let gameBingo = false;
+
+            doc.patterns.forEach((pattern) => {
+                const indexes = [];
+                pattern.indexes.forEach((match, index) => {
+                    if (match) {
+                        indexes.push(index);
+                    }
+                });
+
+                doc.boards.forEach((board) => {
+                    let boardBingo = true;
+
+                    indexes.forEach((index) => {
+                        if (!board.boxes[index].selected) {
+                            boardBingo = false;
+                        }
+                    });
+
+                    board.bingo = boardBingo;
+                    if (boardBingo) {
+                        gameBingo = true;
+                        sendMessage(`game-${doc._id}`, 'game:bingo', { board: board.name });
+                    }
+                });
+            });
+
+            doc.bingo = gameBingo;
+        }
 
         function updateBox (boxes) {
             const box = boxes.find(x => x.timestamp === boxTimestamp);
@@ -59,6 +92,8 @@ const selectBox = {
                     });
                 }
             }
+
+            checkPatterns(doc);
 
             return doc;
         }

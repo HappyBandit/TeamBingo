@@ -11,6 +11,7 @@ import {
     GraphQLObjectType as ObjectType,
     GraphQLString as StringType,
     GraphQLInt as IntegerType,
+    GraphQLBoolean as BoolType,
     GraphQLNonNull as NonNull,
     GraphQLList as List,
     GraphQLID as IdType,
@@ -26,6 +27,7 @@ const GameType = new ObjectType({
     fields: {
         _id: { type: IdType },
         type: { type: new NonNull(IntegerType) },
+        bingo: { type: BoolType },
         name: { type: new NonNull(StringType) },
         boxes: { type: new List(BoxIemType) },
         boards: {

@@ -10,6 +10,7 @@
 import {
     GraphQLObjectType as ObjectType,
     GraphQLString as StringType,
+    GraphQLBoolean as BoolType,
     GraphQLNonNull as NonNull,
     GraphQLList as List,
     GraphQLID as IdType,
@@ -23,6 +24,7 @@ const BoardItemType = new ObjectType({
         name: { type: new NonNull(StringType) },
         boxes: { type: new List(BoxIemType) },
         timestamp: { type: new NonNull(IdType) },
+        bingo: { type: BoolType },
     },
 });
 

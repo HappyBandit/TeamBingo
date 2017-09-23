@@ -33,7 +33,7 @@ export default {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        query: `query{game(id:"${id}"){_id,name,type,config{rows,columns},boards(timestamp:"${board}"){name,timestamp,boxes{text,selected,timestamp}}}}`,
+                        query: `query{game(id:"${id}"){_id,name,type,config{rows,columns},boards(timestamp:"${board}"){name,timestamp,boxes{text,selected,timestamp},bingo}}}`,
                     }),
                     credentials: 'include',
                 });

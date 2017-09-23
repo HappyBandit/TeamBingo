@@ -32,6 +32,7 @@ class Board extends React.Component {
                     selected: PropTypes.bool,
                 })).isRequired,
                 timestamp: PropTypes.string.isRequired,
+                bingo: PropTypes.bool,
             }).isRequired,
         }).isRequired,
     };
@@ -41,6 +42,8 @@ class Board extends React.Component {
 
         this.state = {
             boxes: this.props.game.boards.boxes,
+            bingoHere: false,
+            bingoOthers: [],
         };
     }
 
@@ -48,6 +51,21 @@ class Board extends React.Component {
         if (this.props.game.type === 0) {
             this.socket = io('/', { query: `gameId=${this.props.game._id}` });
             this.socket.on('click:box', data => this.setBox({ data }));
+            this.socket.on('game:bingo', data => this.onBingo({ data }));
+        }
+    }
+
+    onBingo ({ data }) {
+        if (data.board === this.props.game.boards.name) {
+            this.setState({
+                bingoHere: true,
+            });
+        } else {
+            const newBingoOthers = [...this.state.bingoOthers, data.board];
+
+            this.setState({
+                bingoOthers: newBingoOthers,
+            });
         }
     }
 
@@ -61,12 +79,32 @@ class Board extends React.Component {
     }
 
     render () {
+        let bingoHere = null;
+        let bingoOthers = null;
+
+        if (this.state.bingoHere || this.props.game.boards.bingo) {
+            bingoHere = (<h2>YOU GOT A BINGO</h2>);
+        }
+
+        if (this.state.bingoOthers && this.state.bingoOthers.length > 0) {
+            bingoOthers = (
+                <div>
+                    <h2>SOMEONE GOT A BINGO</h2>
+                    {this.state.bingoOthers.map(name => (
+                        <h3 key={name}>{name} Got a Bingo</h3>
+                    ))}
+                </div>
+            );
+        }
+
         return (
             <div className={s.root}>
                 <div className={s.container}>
                     <h1>{this.props.game.boards.name}</h1>
+                    {bingoHere}
+                    {bingoOthers}
                     <div className={s.board}>
-                        {this.props.game.boards.boxes.map((box, index) => (
+                        {this.state.boxes.map((box, index) => (
                             <Box
                                 key={box.timestamp || index}
                                 gameId={this.props.game._id}
